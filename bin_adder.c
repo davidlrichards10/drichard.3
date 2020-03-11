@@ -30,6 +30,7 @@ int main(int argc, char *argv[])
         }
 
         int index = atoi(argv[0]);
+	int count = atoi(argv[1]);
 
         key_t mem_key = ftok("./master.c", 1);
         int shmid2 = shmget(mem_key, sizeof(struct sharedMem), 0666);
@@ -52,7 +53,7 @@ int main(int argc, char *argv[])
         int i;
         const time_t tma = time(NULL);
         char * tme = ctime( & tma);
-        for (i = 0; i < 1; i++)
+        for (i = 0; i < count/2; i++)
         {
                 int num = (rand()%4);
                 sleep(num);
@@ -60,7 +61,7 @@ int main(int argc, char *argv[])
                 sem_wait(sem);
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1);
-                fprintf(file1, "PID: %d Index: %d Size: %d \n",getpid(), (index + i), intShared->numbers[index + i]);
+                fprintf(file1, "PID: %d Index: %d Size: %d Values: %d\n",getpid(), (index + i), count, intShared->numbers[0]);
                 wait(1);
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem);

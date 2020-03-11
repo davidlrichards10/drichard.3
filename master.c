@@ -15,8 +15,6 @@ int squarert(int);
 
 struct sharedMem
 {
-        int nanoseconds;
-        int seconds;
         int numbers[65];
 };
 
@@ -39,17 +37,6 @@ void setUp()
                 printf("\n Error in shmat \n");
                 exit(0);
         }
-        intShared->nanoseconds = 0; //start our virtual nanoseconds at 0
-        intShared->seconds = 0; //start our virtual seconds at 0
-}
-
-void incrementClock(int incrementor) //used to increment our virtual clock
-{
-        intShared->nanoseconds = intShared->nanoseconds + incrementor;
-        if(intShared->nanoseconds % 1000000000 == 0) //1 second = 1000000000 nanoseconds, based on real time
-        {
-                intShared->seconds = intShared->seconds + 1;
-        }
 }
 
 void detach()
@@ -60,7 +47,7 @@ void detach()
 
 int main(int argc, char* argv[])
 {
-        int n = 64;
+        int n = 8;
         int c;
 
         while((c=getopt(argc, argv, "n:h"))!= EOF)
@@ -134,29 +121,29 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
-                int incrementor = 10000;
                 alarm(100);
                 int status;
                 int numbers = n;
                 int active = 1;
                 int k = 0;
+		int count = n;
                 pid_t pids[n],wpid;
-                while(k < numbers)
+                while(k < numbers - 1)
                 {
-                        incrementClock(incrementor);
-
                         if(active < 2)
                         {
                                 pids[k] = fork();
                                 if(pids[k] == 0)
                                 {
                                         char index[20];
+					char yy[20];
                                         sprintf(index, "%d", k);
-                                        execl("./bin_adder",index,NULL);
+					sprintf(yy, "%d", count);
+                                        execl("./bin_adder",index,yy,NULL);
                                         exit(0);
                                 }
                                 active++;
-                                k = k + 5;
+                                k+=1;
                                 n--;
                                 if(active == 2){
 
@@ -170,12 +157,13 @@ int main(int argc, char* argv[])
                                                 }
                                         }
                                 }
-
+		
                                 if(k >= numbers){
                                         while((wpid = wait(&status)) > 0);
                                         break;
                                 }
                         }
+			count = count / 2;
                 }
 
         detach();
