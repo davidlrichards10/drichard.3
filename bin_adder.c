@@ -15,6 +15,22 @@ struct sharedMem
 
 struct sharedMem *intShared;
 
+int sum1 (int n, int A[ ])
+{
+
+  if (n == 1)
+    return A[0];
+  int pairs_sum[n / 2];
+  int j = 0;
+  int i = 0;
+  for (i = 0; i < n; i = i + 2)
+    {
+      pairs_sum[j] = A[i] + A[i + 1];
+      j++;
+    }
+  return sum1 (n / 2, pairs_sum);
+}
+
 int main(int argc, char *argv[])
 {
 
@@ -31,7 +47,8 @@ int main(int argc, char *argv[])
 
         int index = atoi(argv[0]);
 	int count = atoi(argv[1]);
-
+	int n = atoi(argv[2]);
+	
         key_t mem_key = ftok("./master.c", 1);
         int shmid2 = shmget(mem_key, sizeof(struct sharedMem), 0666);
         if(shmid2 == -1)
@@ -47,10 +64,16 @@ int main(int argc, char *argv[])
                 exit(0);
         }
 
-        int sum = 0;
+	int i = 0;
+        int A[n];
+        int size = n;
+        for(i=0; i<size; i++)
+        {
+                A[i] = intShared->numbers[i];
+        }
+
         FILE* file1;
         file1 = fopen("adder_log", "a");
-        int i;
         const time_t tma = time(NULL);
         char * tme = ctime( & tma);
         for (i = 0; i < count/2; i++)
@@ -60,12 +83,15 @@ int main(int argc, char *argv[])
                 fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
                 sem_wait(sem);
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
-                wait(1);
-                fprintf(file1, "PID: %d Index: %d Size: %d Values: %d\n",getpid(), (index + i), count, intShared->numbers[0]);
+		int s1 = sum1(n,A);
+        	fprintf(file1,"Sum: %d\n", s1);
+		wait(1);
+                fprintf(file1, "PID: %d Index: %d Size: %d\n",getpid(), (index + i), count);
                 wait(1);
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem);
         }
+
         shmdt((void *) intShared);
 
 return 0;

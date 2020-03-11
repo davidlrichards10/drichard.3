@@ -84,7 +84,7 @@ int main(int argc, char* argv[])
         {
                 int num = (rand() % (256 - 0 + 1)) + 0;
                 fprintf(file, "%d\n", num);
-        }
+	}
 
         fclose(file);
 
@@ -130,6 +130,7 @@ int main(int argc, char* argv[])
                 pid_t pids[n],wpid;
                 while(k < numbers - 1)
                 {
+			k = 0;
                         if(active < 2)
                         {
                                 pids[k] = fork();
@@ -137,9 +138,11 @@ int main(int argc, char* argv[])
                                 {
                                         char index[20];
 					char yy[20];
+					char max[20];
                                         sprintf(index, "%d", k);
 					sprintf(yy, "%d", count);
-                                        execl("./bin_adder",index,yy,NULL);
+					sprintf(max, "%d", numbers);
+                                        execl("./bin_adder",index,yy,max,NULL);
                                         exit(0);
                                 }
                                 active++;
@@ -158,7 +161,7 @@ int main(int argc, char* argv[])
                                         }
                                 }
 		
-                                if(k >= numbers){
+                                if(k >= numbers - 1){
                                         while((wpid = wait(&status)) > 0);
                                         break;
                                 }
