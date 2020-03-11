@@ -15,6 +15,9 @@ int squarert(int);
 
 struct sharedMem
 {
+	int hindex;
+	int tindex;
+	int eindex;
         int numbers[65];
 };
 
@@ -80,12 +83,20 @@ int main(int argc, char* argv[])
 
         srand(time(0));
         int i;
-        for(i = 0; i < n; i++)
-        {
-                int num = (rand() % (256 - 0 + 1)) + 0;
-                fprintf(file, "%d\n", num);
-	}
+        //for(i = 0; i < n; i++)
+        //{
+               // int num = (rand() % (256 - 0 + 1)) + 0;
+               // fprintf(file, "%d\n", num);
+	//}
 
+	fprintf(file, "1\n");
+	fprintf(file, "2\n");
+	fprintf(file, "3\n");
+	fprintf(file, "4\n");
+	fprintf(file, "5\n");
+	fprintf(file, "6\n");
+	fprintf(file, "7\n");
+	fprintf(file, "8\n");
         fclose(file);
 
         fopen("intFile", "r");
@@ -125,7 +136,7 @@ int main(int argc, char* argv[])
                 int status;
                 int numbers = n;
                 int active = 1;
-                int k = 0;
+                int k;
 		int count = n;
                 pid_t pids[n],wpid;
                 while(k < numbers - 1)
@@ -161,10 +172,14 @@ int main(int argc, char* argv[])
                                         }
                                 }
 		
-                                if(k >= numbers - 1){
+                                if(k > numbers - 1){
                                         while((wpid = wait(&status)) > 0);
                                         break;
                                 }
+				if (k > numbers)
+				{
+					break;
+				}
                         }
 			count = count / 2;
                 }
@@ -188,23 +203,4 @@ void sigErrors(int signum) //function for signal handling, either 2 second alarm
         sem_unlink("p3sem");
         kill(0, SIGTERM);
         exit(EXIT_SUCCESS);
-}
-
-int squarert(int n)
-{
-        float temp;
-        float sqrt;
-        int rvalue;
-
-        sqrt = n / 2;
-        temp = 0;
-
-        while(sqrt != temp)
-        {
-                temp = sqrt;
-                sqrt = (n / temp + temp) / 2;
-        }
-        rvalue = (int) sqrt;
-
-return rvalue;
 }
