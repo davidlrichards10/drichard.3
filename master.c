@@ -50,7 +50,7 @@ void detach()
 
 int main(int argc, char* argv[])
 {
-        int n = 8;
+        int n = 64;
         int c;
 
         while((c=getopt(argc, argv, "n:h"))!= EOF)
@@ -83,20 +83,20 @@ int main(int argc, char* argv[])
 
         srand(time(0));
         int i;
-        //for(i = 0; i < n; i++)
-        //{
-               // int num = (rand() % (256 - 0 + 1)) + 0;
-               // fprintf(file, "%d\n", num);
-	//}
+        for(i = 0; i < n; i++)
+        {
+               int num = (rand() % (256 - 0 + 1)) + 0;
+               fprintf(file, "%d\n", num);
+	}
 
-	fprintf(file, "1\n");
+	/*fprintf(file, "1\n");
 	fprintf(file, "2\n");
 	fprintf(file, "3\n");
 	fprintf(file, "4\n");
 	fprintf(file, "5\n");
 	fprintf(file, "6\n");
 	fprintf(file, "7\n");
-	fprintf(file, "8\n");
+	fprintf(file, "8\n");*/
         fclose(file);
 
         fopen("intFile", "r");
@@ -132,7 +132,7 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
-                alarm(100);
+                //alarm(100);
                 int status;
                 int numbers = n;
                 int active = 1;
@@ -182,6 +182,10 @@ int main(int argc, char* argv[])
 				}
                         }
 			count = count / 2;
+			if (count == 1)
+			{
+				break;
+			}
                 }
 
         detach();

@@ -84,22 +84,16 @@ int main(int argc, char *argv[])
 	intShared->hindex = index;
         intShared->tindex = index + (count / 2);
         intShared->eindex = count;
+
         for (i = 0, hrquest = intShared->hindex, trquest = intShared->tindex; i < count / 2; i++, hrquest++, trquest++)
-        //for(hrquest = intShared->hindex, trquest = intShared->tindex; hrquest < (intShared->hindex + 5), trquest < (intShared->tindex + 5); hrquest++, trquest++)
 	{
-		/*hrquest = intShared->hindex;
-		trquest = intShared->tindex;
-		hrquest++;
-		trquest++;*/
 		int result = intShared->numbers[hrquest] + intShared->numbers[trquest];	
-	
                 int num = (rand()%4);
+
                 sleep(num);
                 fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
                 sem_wait(sem);
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
-		//int s1 = sum1(n,A);
-        	//fprintf(file1,"Sum: %d\n", s1);
 		wait(1);
                 fprintf(file1, "PID: %d Index: %d Size: %d Values: %d and %d Result: %d\n",getpid(), (index + i), count,intShared->numbers[hrquest], intShared->numbers[trquest],result);
                 wait(1);
