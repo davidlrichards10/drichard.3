@@ -1,3 +1,10 @@
+/*
+ * Date:   March 12, 2020
+ * Author: David Richards
+ * Class:  CS4760
+ * File: "master.c"
+*/
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -15,9 +22,6 @@ int squarert(int);
 
 struct sharedMem
 {
-	int hindex;
-	int tindex;
-	int eindex;
         int numbers[65];
 };
 
@@ -132,7 +136,7 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
-                //alarm(100);
+                alarm(100);
                 int status;
                 int numbers = n;
                 int active = 1;
@@ -149,11 +153,9 @@ int main(int argc, char* argv[])
                                 {
                                         char index[20];
 					char yy[20];
-					char max[20];
                                         sprintf(index, "%d", k);
 					sprintf(yy, "%d", count);
-					sprintf(max, "%d", numbers);
-                                        execl("./bin_adder",index,yy,max,NULL);
+                                        execl("./bin_adder",index,yy,NULL);
                                         exit(0);
                                 }
                                 active++;

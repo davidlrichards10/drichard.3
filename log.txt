@@ -1,0 +1,53 @@
+commit 62931337e368650c9950b01db215ade436068d47
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Wed Mar 11 21:50:10 2020 -0500
+
+    compilation now terminates normally, working on comp 2
+
+commit 5ff15af947a195f9af28cfc9c15f04bf725097e5
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Wed Mar 11 17:20:17 2020 -0500
+
+    fixed computation 1
+
+commit 2069b712e5ee05256d2ed2b3466f7f9f03804413
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Wed Mar 11 15:27:24 2020 -0500
+
+    first computation working
+
+commit 5c942893bed8cdcabf219b61b5a6c7cfdd7d442d
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Wed Mar 11 12:18:07 2020 -0500
+
+    have size working for number of processes
+
+commit a84dd53d54f1c14da060c6e2e1bbb3fd9477ad7f
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Tue Mar 10 13:46:19 2020 -0500
+
+    working on n/2
+
+commit 134ef6c51c1f7c19cfba17ac790facabacaac886
+Author: davidlrichards10 <62032455+davidlrichards10@users.noreply.github.com>
+Date:   Tue Mar 10 13:44:29 2020 -0500
+
+    Create bin_adder.c
+
+commit 363f52e0ef9811c136bf70f01ad772979fa78d95
+Author: davidlrichards10 <62032455+davidlrichards10@users.noreply.github.com>
+Date:   Tue Mar 10 13:43:41 2020 -0500
+
+    Create master.c
+
+commit 760330e4b22d1602188516fbcb491f15856b622b
+Author: davidlrichards10 <62032455+davidlrichards10@users.noreply.github.com>
+Date:   Tue Mar 10 13:42:50 2020 -0500
+
+    Create README
+
+commit c5a406d06af9a7498576c9907d0318f07ec8c95a
+Author: davidlrichards10 <62032455+davidlrichards10@users.noreply.github.com>
+Date:   Tue Mar 10 13:42:31 2020 -0500
+
+    Create makefile
