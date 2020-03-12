@@ -1,10 +1,3 @@
-/*
- * Date:   March 12, 2020
- * Author: David Richards
- * Class:  CS4760
- * File: "master.c"
-*/
-
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -20,7 +13,7 @@ int shmid;
 void sigErrors(int signum);
 
 /* Struct to hold integer shared memory array */
-struct sharedMem 
+struct sharedMem
 {
         int numbers[65];
 };
@@ -82,7 +75,7 @@ int main(int argc, char* argv[])
 
 
         setUp(); //setup shared memory
-	
+
 	/* Open the inFile to write to it */
         FILE *file = fopen("intFile", "w");
         if(!file)
@@ -92,24 +85,17 @@ int main(int argc, char* argv[])
         }
 
         srand(time(0));
-
         int i;
+	
 	/* Generate n random nmbers [0, 256) and print them to intFile */
         for(i = 0; i < n; i++)
         {
                int num = (rand() % (256 - 0 + 1)) + 0;
                fprintf(file, "%d\n", num);
-	}
+        }
 
-	/*fprintf(file, "1\n");
-	fprintf(file, "2\n");
-	fprintf(file, "3\n");
-	fprintf(file, "4\n");
-	fprintf(file, "5\n");
-	fprintf(file, "6\n");
-	fprintf(file, "7\n");
-	fprintf(file, "8\n");*/
         fclose(file);
+
 
 	/* Open intFile to read integers */
         fopen("intFile", "r");
@@ -149,34 +135,31 @@ int main(int argc, char* argv[])
         }
 
                 alarm(100); //set alarm to terminate after 100 seconds
-
                 int status;
                 int numbers = n;
                 int active = 1;
                 int k;
-		int count = n;
+                int count = n;
                 pid_t pids[n],wpid;
-
                 while(k < numbers - 1)
                 {
-			k = 0;
-                        if(active < 20)
+                        k = 0;
+                        if(active < 2)
                         {
                                 pids[k] = fork(); //start forking processes
-	
                                 if(pids[k] == 0)
                                 {
                                         char index[20]; //store index of numbers
-					char yy[20]; //store count of integers to be added
+                                        char yy[20]; //store count of numbers
                                         sprintf(index, "%d", k);
-					sprintf(yy, "%d", count);
+                                        sprintf(yy, "%d", count);
                                         execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
                                         exit(0);
                                 }
                                 active++;
                                 k+=1;
                                 n--;
-                                if(active == 20){
+                                if(active == 2){
 
                                         int m;
                                         for(m = 0; m < n; m++){
@@ -188,30 +171,29 @@ int main(int argc, char* argv[])
                                                 }
                                         }
                                 }
-		
+
                                 if(k > numbers - 1){
                                         while((wpid = wait(&status)) > 0);
                                         break;
                                 }
-				if (k > numbers)
-				{
-					break;
-				}
+                                if (k > numbers)
+                                {
+                                        break;
+                                }
                         }
-			count = count / 2;
-			if (count == 1) //break if count is equal to 1
-			{
-				break;
-			}
+                        count = count / 2;
+                        if (count == 1) //break when count is equal; to 1
+                        {
+                                break;
+                        }
                 }
 
         detach(); //detach shared memory
-        sem_unlink("p3sem"); //disconnect semapahore
+        sem_unlink("p3sem"); //unlink semaphore
         return 0;
 }
 
-/* Function to handle signal terminations on ctrl-c and alarm(100) */
-void sigErrors(int signum)
+void sigErrors(int signum) //function for signal handling, either 100 second alarm or Ctrl-c
 {
         if (signum == SIGINT)
         {
