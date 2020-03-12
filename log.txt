@@ -1,3 +1,21 @@
+commit 6af1b5f83be29b9006f36b94dd1c92b756977dc6
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Thu Mar 12 15:08:08 2020 -0500
+
+    fixed semaphore issue
+
+commit 30276fc72d8f11bf6176c1424290afd913496ce9
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Thu Mar 12 10:19:17 2020 -0500
+
+    added base comments
+
+commit 510e223d66537f3810c73e73a1ea0c785ecb800f
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Thu Mar 12 08:38:53 2020 -0500
+
+    cleaned up bin_adder.c
+
 commit 62931337e368650c9950b01db215ade436068d47
 Author: David Richards <drichard@hoare7.cs.umsl.edu>
 Date:   Wed Mar 11 21:50:10 2020 -0500

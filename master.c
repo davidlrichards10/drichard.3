@@ -125,14 +125,22 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
-	/* Create the semaphore used to protect the critical section */
+	/* Create the semaphore used to protect the critical section  of n/2 */
         sem_t* sem;
         sem = sem_open("p3sem", O_CREAT, 0644, 1);
         if(sem == SEM_FAILED)
         {
-                fprintf(stderr,"Error in sem_open");
+                perror("Error in sem_open");
                 exit(0);
         }
+	
+	sem_t* sem2;
+	sem2 = sem_open("p3sem2", O_CREAT, 0645, 1);
+	if(sem2 == SEM_FAILED)
+	{
+		perror("Error in sem_open for sem 2");
+		exit(0);
+	}
 
                 alarm(100); //set alarm to terminate after 100 seconds
                 int status;
@@ -190,6 +198,7 @@ int main(int argc, char* argv[])
 
         detach(); //detach shared memory
         sem_unlink("p3sem"); //unlink semaphore
+	sem_unlink("p3sem2");
         return 0;
 }
 

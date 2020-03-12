@@ -28,22 +28,31 @@ int main(int argc, char *argv[])
         struct timespec tyme;
         clock_gettime(CLOCK_MONOTONIC, & tyme);
         srand((unsigned)(tyme.tv_sec ^ tyme.tv_nsec ^ (tyme.tv_nsec >> 31)));
+	
         sem_t* sem;
+	sem_t* sem2;
 
 	/* Open semaphore to protect critical section */
         sem = sem_open("p3sem",0);
         if(sem == SEM_FAILED)
         {
-                fprintf(stderr,"./bin_adder: Error in sem_open");
-                exit(1);
+                perror("./bin_adder: Error in sem_open");
+                exit(0);
         }
+	
+	sem2 = sem_open("p3sem2",0);
+	if(sem2 == SEM_FAILED)
+	{
+		perror("./bin_adder: Error in sem_open sem2");
+		exit(0);
+	}
 
 	/* Allocate shared memory */
  	key_t mem_key = ftok("./master.c", 1);
         int shmid2 = shmget(mem_key, sizeof(struct sharedMem), 0666);
         if(shmid2 == -1)
         {
-                printf("Error in bin_adder shmget\n");
+                perror("Error in bin_adder shmget\n");
                 exit(0);
         }
 
@@ -51,7 +60,7 @@ int main(int argc, char *argv[])
         intShared = shmat(shmid2,(void *)0,0);
         if((intptr_t) intShared == -1)
         {
-                printf("Error in bin_adder shmat\n");
+                perror("Error in bin_adder shmat\n");
                 exit(0);
         }
 
@@ -87,7 +96,7 @@ int main(int argc, char *argv[])
                 sem_wait(sem); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1); //wait 1 second before writing to the file
-                fprintf(file1, "PID: %d Index: %d Size: %d Values: %d and %d Result: %d\n",getpid(), (index + i), count,intShared->numbers[beginNum], intShared->numbers[computationNum],result);
+                fprintf(file1, "PID: %d     Index: %d     Size: %d     Values: %d and %d     Result: %d\n",getpid(), (index + i), count,intShared->numbers[beginNum], intShared->numbers[computationNum],result);
                 wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem); //signal the semaphore
