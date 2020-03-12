@@ -18,15 +18,16 @@
 
 int shmid;
 void sigErrors(int signum);
-int squarert(int);
 
-struct sharedMem
+/* Struct to hold integer shared memory array */
+struct sharedMem 
 {
         int numbers[65];
 };
 
 struct sharedMem *intShared;
 
+/* Set up shared memory */
 void setUp()
 {
         key_t mem_key = ftok("./master.c", 1);
@@ -46,17 +47,20 @@ void setUp()
         }
 }
 
+/* Detach shared memory segment */
 void detach()
 {
         shmdt((void*)intShared);
         shmctl(shmid, IPC_RMID, NULL);
 }
 
+/* Main program */
 int main(int argc, char* argv[])
 {
-        int n = 64;
+        int n = 64; //default random numbers to generate is 64
         int c;
 
+	/* Using getopt to parse command line options for -h and -n */
         while((c=getopt(argc, argv, "n:h"))!= EOF)
         {
                 switch(c)
@@ -77,7 +81,9 @@ int main(int argc, char* argv[])
 }
 
 
-        setUp();
+        setUp(); //setup shared memory
+	
+	/* Open the inFile to write to it */
         FILE *file = fopen("intFile", "w");
         if(!file)
         {
@@ -86,7 +92,9 @@ int main(int argc, char* argv[])
         }
 
         srand(time(0));
+
         int i;
+	/* Generate n random nmbers [0, 256) and print them to intFile */
         for(i = 0; i < n; i++)
         {
                int num = (rand() % (256 - 0 + 1)) + 0;
@@ -103,6 +111,7 @@ int main(int argc, char* argv[])
 	fprintf(file, "8\n");*/
         fclose(file);
 
+	/* Open intFile to read integers */
         fopen("intFile", "r");
         if(!file)
         {
@@ -110,6 +119,7 @@ int main(int argc, char* argv[])
                 return EXIT_FAILURE;
         }
 
+	/* Read n numbers from intFile into the shared memory array */
         for(i = 0; i < n; i++)
         {
                 fscanf(file, "%d", &intShared->numbers[i]);
@@ -118,6 +128,7 @@ int main(int argc, char* argv[])
 
         fclose(file);
 
+	/* Signal handler for Cntrl-c and alarm(100) */
         if (signal(SIGINT, sigErrors) == SIG_ERR) //sigerror on cntrl-c
         {
                 exit(0);
@@ -128,6 +139,7 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
+	/* Create the semaphore used to protect the critical section */
         sem_t* sem;
         sem = sem_open("p3sem", O_CREAT, 0644, 1);
         if(sem == SEM_FAILED)
@@ -136,32 +148,35 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 
-                alarm(100);
+                alarm(100); //set alarm to terminate after 100 seconds
+
                 int status;
                 int numbers = n;
                 int active = 1;
                 int k;
 		int count = n;
                 pid_t pids[n],wpid;
+
                 while(k < numbers - 1)
                 {
 			k = 0;
-                        if(active < 2)
+                        if(active < 20)
                         {
-                                pids[k] = fork();
+                                pids[k] = fork(); //start forking processes
+	
                                 if(pids[k] == 0)
                                 {
-                                        char index[20];
-					char yy[20];
+                                        char index[20]; //store index of numbers
+					char yy[20]; //store count of integers to be added
                                         sprintf(index, "%d", k);
 					sprintf(yy, "%d", count);
-                                        execl("./bin_adder",index,yy,NULL);
+                                        execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
                                         exit(0);
                                 }
                                 active++;
                                 k+=1;
                                 n--;
-                                if(active == 2){
+                                if(active == 20){
 
                                         int m;
                                         for(m = 0; m < n; m++){
@@ -184,18 +199,19 @@ int main(int argc, char* argv[])
 				}
                         }
 			count = count / 2;
-			if (count == 1)
+			if (count == 1) //break if count is equal to 1
 			{
 				break;
 			}
                 }
 
-        detach();
-        sem_unlink("p3sem");
+        detach(); //detach shared memory
+        sem_unlink("p3sem"); //disconnect semapahore
         return 0;
 }
 
-void sigErrors(int signum) //function for signal handling, either 2 second alarm or Ctrl-c
+/* Function to handle signal terminations on ctrl-c and alarm(100) */
+void sigErrors(int signum)
 {
         if (signum == SIGINT)
         {
