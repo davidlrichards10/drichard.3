@@ -7,13 +7,15 @@ Invocation: ./master [-h] [-n x]
 =======================================================================================================================
 How to Run:
                 1. Type make
-                2. Run the executable by typing ./oss [-h] [-n x-s x -b B -i I | -o filename]
+                2. Run the executable by typing ./master [-h] [-n x]
                 3. ./master alone will run with the following default ./master -n 64
-                4. -h   = describe how the project should be run and then terminate
+		4. Default files names (File holding random integers (intFile)
+		5. Default file names (File that outputs computation info (adder_log)
+                6. -h   = describe how the project should be run and then terminate
                    -n x = Number of random integers [0,256) to print to input file named (intFile) (Default 64)
-		5. The child processes will update file (adder_log) to tell you what has been done, including
+		7. The child processes will update file (adder_log) to tell you what has been done, including
 		   computation results
-                6. Type make clean to remove (intFile, adder_log, master, bin_adder, master.o and bin_adder.o)
+                8. Type make clean to remove (intFile, adder_log, master, bin_adder, master.o and bin_adder.o)
 =======================================================================================================================
 Version Control (logging technique used)
                 1. My log files are included in /classes/OS/drichard/drichard.3/log.txt
@@ -24,7 +26,5 @@ Version Control (logging technique used)
 =======================================================================================================================
 TODO:
 	Run for max 5
-	Comments
 	fix PIDs
-	add second computation
 	change clock?                                                                                                                       ~         
