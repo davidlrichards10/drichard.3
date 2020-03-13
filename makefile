@@ -8,9 +8,9 @@ SRC = master.c
 SRC1 = bin_adder.c
 all: $(TARGET) $(TARGET1)
 $(TARGET):$(OBJ)
-	$(CC) -o $(TARGET) $(OBJ)
+	$(CC) -o $(TARGET) $(OBJ) -lm
 $(TARGET1):$(OBJ1)
-	$(CC) -o $(TARGET1) $(OBJ1)
+	$(CC) -o $(TARGET1) $(OBJ1) -lm
 $(OBJ): $(SRC)
 	$(CC) $(CFLAGS) -c $(SRC)
 $(OBJ1): $(SRC1)

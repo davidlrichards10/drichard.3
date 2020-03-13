@@ -8,6 +8,7 @@
 #include <sys/file.h>
 #include <signal.h>
 #include <semaphore.h>
+#include <math.h>
 
 int shmid;
 void sigErrors(int signum);
@@ -16,6 +17,8 @@ void sigErrors(int signum);
 struct sharedMem
 {
         int numbers[65];
+	int numbersLog[65];
+	int computationFlg;
 };
 
 struct sharedMem *intShared;
@@ -109,10 +112,15 @@ int main(int argc, char* argv[])
         for(i = 0; i < n; i++)
         {
                 fscanf(file, "%d", &intShared->numbers[i]);
-                printf("%d\n", intShared->numbers[i]);
         }
 
         fclose(file);
+
+	/* Copy shared memory array into shared memory array for log computation*/
+	for(i=0; i<n; i++)
+    	{
+        	intShared->numbersLog[i] = intShared->numbers[i];
+    	}
 
 	/* Signal handler for Cntrl-c and alarm(100) */
         if (signal(SIGINT, sigErrors) == SIG_ERR) //sigerror on cntrl-c
@@ -141,6 +149,8 @@ int main(int argc, char* argv[])
 		perror("Error in sem_open for sem 2");
 		exit(0);
 	}
+		
+		intShared->computationFlg = 1;
 
                 alarm(100); //set alarm to terminate after 100 seconds
                 int status;
@@ -149,7 +159,75 @@ int main(int argc, char* argv[])
                 int k;
                 int count = n;
                 pid_t pids[n],wpid;
+
+		printf("\nStarting n/2 computation\n");
+
+		/* Begin computation of n/2 */
                 while(k < numbers - 1)
+                {
+                        k = 0;
+                        if(active < 2)
+                        {
+                                pids[k] = fork(); //start forking processes
+                                if(pids[k] == 0)
+                                {
+                                        char index[20]; //store index of numbers
+                                        char yy[20]; //store count of numbers
+                                        sprintf(index, "%d", k);
+                                        sprintf(yy, "%d", count);
+                                        execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
+                                        exit(0);
+                                }
+                                active++;
+                                k+=1;
+                                n--;
+                                if(active == 2){
+
+                                        int m;
+                                        for(m = 0; m < n; m++){
+                                                pid_t tempId = waitpid(pids[m], &status, WNOHANG);
+                                                if(tempId == 0){
+                                                        waitpid(tempId, &status, 0);
+                                                        active--;
+                                                        break;
+                                                }
+                                        }
+                                }
+
+                                if(k > numbers - 1){
+                                        while((wpid = wait(&status)) > 0);
+                                        break;
+                                }
+                                if (k > numbers)
+                                {
+                                        break;
+                                }
+                        }
+                        count = count / 2;
+                        if (count == 1) //break when count is equal; to 1
+                        {
+                                break;
+                        }
+                }
+	
+	printf("\nStarting n/log(n) computation\n");
+
+	/* Reset components for second computation*/
+	intShared->computationFlg = 0;
+	
+	active = 1;
+	k = 0;
+	count = n;
+	numbers = n;
+	
+	int logs;
+	int groups = 0;
+
+	logs = log2(numbers);
+	groups = (numbers / logs);
+
+	/* Start second computation */
+	while(k < groups)
                 {
                         k = 0;
                         if(active < 2)
