@@ -1,3 +1,21 @@
+commit abfe855497ea2bd5591df1831bb0ba56310f751b
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Fri Mar 13 12:10:09 2020 -0500
+
+    edited README
+
+commit 092e605b203f25a0e502b87489df818dd03d3a28
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Fri Mar 13 12:07:27 2020 -0500
+
+    second computation working
+
+commit d0e2a90ec714e16d6c6b5ce351774c41051fcd0a
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Thu Mar 12 16:16:38 2020 -0500
+
+    added semaphore for n/logn
+
 commit 6af1b5f83be29b9006f36b94dd1c92b756977dc6
 Author: David Richards <drichard@hoare7.cs.umsl.edu>
 Date:   Thu Mar 12 15:08:08 2020 -0500

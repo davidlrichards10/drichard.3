@@ -9,9 +9,14 @@
 #include <signal.h>
 #include <semaphore.h>
 #include <math.h>
+#include <errno.h>
+
 
 int shmid;
 void sigErrors(int signum);
+int *pids;
+int pcap = 16;
+
 
 /* Struct to hold integer shared memory array */
 struct sharedMem
@@ -149,7 +154,7 @@ int main(int argc, char* argv[])
 		perror("Error in sem_open for sem 2");
 		exit(0);
 	}
-		
+		pids = (int*)calloc(pcap, sizeof(int));
 		intShared->computationFlg = 1;
 
                 alarm(100); //set alarm to terminate after 100 seconds
@@ -215,21 +220,25 @@ int main(int argc, char* argv[])
 	/* Reset components for second computation*/
 	intShared->computationFlg = 0;
 	
+
+	//count = 0;
 	active = 1;
-	k = 0;
 	count = n;
 	numbers = n;
 	
 	int logs;
 	int groups = 0;
+	int g;
+	int index1 = 0;
+	k = 0;
 
 	logs = log2(numbers);
 	groups = (numbers / logs);
 
 	/* Start second computation */
-	while(k < groups)
+	while(k < 10)
                 {
-                        k = 0;
+                        //k = 0;
                         if(active < 2)
                         {
                                 pids[k] = fork(); //start forking processes
@@ -274,7 +283,62 @@ int main(int argc, char* argv[])
                         }
                 }
 
-        detach(); //detach shared memory
+	/*while(l != 0)
+                {
+                        count = l;
+			k = 0;
+		for(g = 0; g < groups; g++)
+		{
+			k = (g * l);
+                        //if(active < 2)
+                        //{
+                                pids[k] = fork(); //start forking processes
+				
+                                if(pids[k] == 0)
+                                {
+                                        char index[20]; //store index of numbers
+                                        char yy[20]; //store count of numbers
+                                        sprintf(index, "%d", k);
+                                        sprintf(yy, "%d", count);
+                                        execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
+                                        exit(0);
+                                }
+                                active++;
+                                k+=1;
+                                n--;
+                                if(active == 2){
+
+                                        int m;
+                                        for(m = 0; m < n; m++){
+                                                pid_t tempId = waitpid(pids[m], &status, WNOHANG);
+                                                if(tempId == 0){
+                                                        waitpid(tempId, &status, 0);
+                                                        active--;
+                                                        break;
+                                                }
+                                        }
+                                }
+
+                                if(k > numbers - 1){
+                                        while((wpid = wait(&status)) > 0);
+                                        break;
+                                }
+                                if (k > numbers)
+                                {
+                                        break;
+                                }
+                        //}
+		}
+			l--;
+			//count = count / 2;
+                        if (l == 0) //break when count is equal; to 1
+                        {
+                                break;
+                        }
+			groups = numbers / l;
+                }*/
+
+	detach(); //detach shared memory
         sem_unlink("p3sem"); //unlink semaphore
 	sem_unlink("p3sem2");
         return 0;
