@@ -24,7 +24,12 @@ Version Control (logging technique used)
 2. Makefile follows proper suffix rules
 3. Currently no known issues
 =======================================================================================================================
-TODO:
-	Run for max 5
-	fix PIDs
-	change clock?                                                                                                                       ~         
+Analysis:
+--------------------------n = 64----------------------------
+Total time taken for n / 2 processes: 109.001500 seconds
+Final Result = 8241
+
+Total time taken for n / log(n) processes: 28.003004 seconds
+Final Result = 8241
+------------------------------------------------------------
+=======================================================================================================================        

@@ -11,18 +11,15 @@
 #include <math.h>
 #include <errno.h>
 
-
 int shmid;
 void sigErrors(int signum);
-int *pids;
-int pcap = 16;
-
 
 /* Struct to hold integer shared memory array */
 struct sharedMem
 {
-        int numbers[65];
-	int numbersLog[65];
+        int numbers[1024];
+	int numbersLog[1024];
+	int numbersSum[1024];
 	int computationFlg;
 };
 
@@ -78,8 +75,8 @@ int main(int argc, char* argv[])
         default:
                 return -1;
 
-        }
-}
+        	}
+	}
 
 
         setUp(); //setup shared memory
@@ -127,6 +124,12 @@ int main(int argc, char* argv[])
         	intShared->numbersLog[i] = intShared->numbers[i];
     	}
 
+	/* Copy shared memory array into shared memory array for sum output*/
+        for(i=0; i<n; i++)
+        {
+                intShared->numbersSum[i] = intShared->numbers[i];
+        }
+
 	/* Signal handler for Cntrl-c and alarm(100) */
         if (signal(SIGINT, sigErrors) == SIG_ERR) //sigerror on cntrl-c
         {
@@ -154,10 +157,9 @@ int main(int argc, char* argv[])
 		perror("Error in sem_open for sem 2");
 		exit(0);
 	}
-		pids = (int*)calloc(pcap, sizeof(int));
 		intShared->computationFlg = 1;
 
-                alarm(100); //set alarm to terminate after 100 seconds
+                //alarm(100); //set alarm to terminate after 100 seconds
                 int status;
                 int numbers = n;
                 int active = 1;
@@ -166,6 +168,9 @@ int main(int argc, char* argv[])
                 pid_t pids[n],wpid;
 
 		printf("\nStarting n/2 computation\n");
+
+		struct timeval tv1, tv2, tv3, tv4;
+		gettimeofday(&tv1, NULL);
 
 		/* Begin computation of n/2 */
                 while(k < numbers - 1)
@@ -215,129 +220,80 @@ int main(int argc, char* argv[])
                         }
                 }
 	
+	gettimeofday(&tv2, NULL);
+	printf("Total time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
+	int sum = 0;
+	int t;
+	for(i=0; i<numbers; i++)
+    	{
+        	sum = sum + intShared->numbersSum[i];
+    	}
+	printf("\n\nFinal Result = %d", sum);
 	printf("\nStarting n/log(n) computation\n");
 
 	/* Reset components for second computation*/
 	intShared->computationFlg = 0;
-	
 
-	//count = 0;
-	active = 1;
-	count = n;
-	numbers = n;
-	
-	int logs;
-	int groups = 0;
-	int g;
-	int index1 = 0;
+	double launchChild = 0;
+	launchChild = ceil((double) numbers / log2((double) numbers));
 	k = 0;
+	int index1 = 0;
+	double logNumberDistance;
+    	logNumberDistance = log2(numbers);
+    	int logNumbersToAdd = (int) logNumberDistance;
+	int loopCounter = 0;
 
-	logs = log2(numbers);
-	groups = (numbers / logs);
+	gettimeofday(&tv3, NULL);
+	while (launchChild > 0)
+	{
 
-	/* Start second computation */
-	while(k < 10)
-                {
-                        //k = 0;
-                        if(active < 2)
-                        {
-                                pids[k] = fork(); //start forking processes
-                                if(pids[k] == 0)
-                                {
-                                        char index[20]; //store index of numbers
-                                        char yy[20]; //store count of numbers
-                                        sprintf(index, "%d", k);
-                                        sprintf(yy, "%d", count);
-                                        execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
-                                        exit(0);
-                                }
-                                active++;
-                                k+=1;
-                                n--;
-                                if(active == 2){
-
-                                        int m;
-                                        for(m = 0; m < n; m++){
-                                                pid_t tempId = waitpid(pids[m], &status, WNOHANG);
-                                                if(tempId == 0){
-                                                        waitpid(tempId, &status, 0);
-                                                        active--;
-                                                        break;
-                                                }
-                                        }
-                                }
-
-                                if(k > numbers - 1){
-                                        while((wpid = wait(&status)) > 0);
-                                        break;
-                                }
-                                if (k > numbers)
-                                {
-                                        break;
-                                }
-                        }
-                        count = count / 2;
-                        if (count == 1) //break when count is equal; to 1
-                        {
-                                break;
-                        }
-                }
-
-	/*while(l != 0)
-                {
-                        count = l;
-			k = 0;
-		for(g = 0; g < groups; g++)
+		while (index1 < numbers) 
 		{
-			k = (g * l);
-                        //if(active < 2)
-                        //{
-                                pids[k] = fork(); //start forking processes
-				
-                                if(pids[k] == 0)
+		k = 0;		
+	  	pids[k] = fork(); //start forking processes
+                                
+				if(pids[k] == 0)
                                 {
                                         char index[20]; //store index of numbers
                                         char yy[20]; //store count of numbers
-                                        sprintf(index, "%d", k);
-                                        sprintf(yy, "%d", count);
+                                        sprintf(index, "%d", index1);
+                                        sprintf(yy, "%d", logNumbersToAdd);
                                         execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
                                         exit(0);
                                 }
-                                active++;
-                                k+=1;
-                                n--;
-                                if(active == 2){
 
-                                        int m;
-                                        for(m = 0; m < n; m++){
-                                                pid_t tempId = waitpid(pids[m], &status, WNOHANG);
-                                                if(tempId == 0){
-                                                        waitpid(tempId, &status, 0);
-                                                        active--;
-                                                        break;
-                                                }
-                                        }
-                                }
+				index1 += (int) logNumberDistance;
+				wpid = wait(&status);
 
-                                if(k > numbers - 1){
-                                        while((wpid = wait(&status)) > 0);
-                                        break;
-                                }
-                                if (k > numbers)
-                                {
-                                        break;
-                                }
-                        //}
 		}
-			l--;
-			//count = count / 2;
-                        if (l == 0) //break when count is equal; to 1
-                        {
-                                break;
-                        }
-			groups = numbers / l;
-                }*/
+				intShared->numbersLog[1] = intShared->numbersLog[(int)logNumberDistance];
+				
+				int z;
+        			for (z = 2; z < launchChild; z++) 
+				{
+            				intShared->numbersLog[z] = intShared->numbersLog[z * (int)logNumberDistance];
+        			}
+			index1 = 0;
+        		launchChild = ceil(launchChild / 2);
+			
+			if(launchChild == 1)
+			{
+            			if(loopCounter == 1)
+				{
+                			launchChild = 0;
+           			}
 
+            			loopCounter +=1;
+			}
+			numbers /= logNumbersToAdd;
+        		logNumberDistance = 2;
+        		logNumbersToAdd = 2;
+	}
+	gettimeofday(&tv4, NULL);
+        printf("Total time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
+	
+	printf("Final Result = %d\n", sum);
+	
 	detach(); //detach shared memory
         sem_unlink("p3sem"); //unlink semaphore
 	sem_unlink("p3sem2");

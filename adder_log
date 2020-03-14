@@ -1,0 +1,84 @@
+n / 2 computation:      PID: 2501     Index: 0     Size: 64    Result: 245
+n / 2 computation:      PID: 2501     Index: 1     Size: 64    Result: 387
+n / 2 computation:      PID: 2501     Index: 2     Size: 64    Result: 338
+n / 2 computation:      PID: 2501     Index: 3     Size: 64    Result: 271
+n / 2 computation:      PID: 2501     Index: 4     Size: 64    Result: 340
+n / 2 computation:      PID: 2501     Index: 5     Size: 64    Result: 309
+n / 2 computation:      PID: 2501     Index: 6     Size: 64    Result: 244
+n / 2 computation:      PID: 2501     Index: 7     Size: 64    Result: 217
+n / 2 computation:      PID: 2501     Index: 8     Size: 64    Result: 127
+n / 2 computation:      PID: 2501     Index: 9     Size: 64    Result: 169
+n / 2 computation:      PID: 2501     Index: 10     Size: 64    Result: 186
+n / 2 computation:      PID: 2501     Index: 11     Size: 64    Result: 73
+n / 2 computation:      PID: 2501     Index: 12     Size: 64    Result: 274
+n / 2 computation:      PID: 2501     Index: 13     Size: 64    Result: 331
+n / 2 computation:      PID: 2501     Index: 14     Size: 64    Result: 324
+n / 2 computation:      PID: 2501     Index: 15     Size: 64    Result: 357
+n / 2 computation:      PID: 2501     Index: 16     Size: 64    Result: 227
+n / 2 computation:      PID: 2501     Index: 17     Size: 64    Result: 170
+n / 2 computation:      PID: 2501     Index: 18     Size: 64    Result: 309
+n / 2 computation:      PID: 2501     Index: 19     Size: 64    Result: 454
+n / 2 computation:      PID: 2501     Index: 20     Size: 64    Result: 483
+n / 2 computation:      PID: 2501     Index: 21     Size: 64    Result: 367
+n / 2 computation:      PID: 2501     Index: 22     Size: 64    Result: 183
+n / 2 computation:      PID: 2501     Index: 23     Size: 64    Result: 88
+n / 2 computation:      PID: 2501     Index: 24     Size: 64    Result: 206
+n / 2 computation:      PID: 2501     Index: 25     Size: 64    Result: 56
+n / 2 computation:      PID: 2501     Index: 26     Size: 64    Result: 233
+n / 2 computation:      PID: 2501     Index: 27     Size: 64    Result: 365
+n / 2 computation:      PID: 2501     Index: 28     Size: 64    Result: 89
+n / 2 computation:      PID: 2501     Index: 29     Size: 64    Result: 240
+n / 2 computation:      PID: 2501     Index: 30     Size: 64    Result: 374
+n / 2 computation:      PID: 2501     Index: 31     Size: 64    Result: 205
+n / 2 computation:      PID: 2571     Index: 0     Size: 32    Result: 472
+n / 2 computation:      PID: 2571     Index: 1     Size: 32    Result: 557
+n / 2 computation:      PID: 2571     Index: 2     Size: 32    Result: 647
+n / 2 computation:      PID: 2571     Index: 3     Size: 32    Result: 725
+n / 2 computation:      PID: 2571     Index: 4     Size: 32    Result: 823
+n / 2 computation:      PID: 2571     Index: 5     Size: 32    Result: 676
+n / 2 computation:      PID: 2571     Index: 6     Size: 32    Result: 427
+n / 2 computation:      PID: 2571     Index: 7     Size: 32    Result: 305
+n / 2 computation:      PID: 2571     Index: 8     Size: 32    Result: 333
+n / 2 computation:      PID: 2571     Index: 9     Size: 32    Result: 225
+n / 2 computation:      PID: 2571     Index: 10     Size: 32    Result: 419
+n / 2 computation:      PID: 2571     Index: 11     Size: 32    Result: 438
+n / 2 computation:      PID: 2571     Index: 12     Size: 32    Result: 363
+n / 2 computation:      PID: 2571     Index: 13     Size: 32    Result: 571
+n / 2 computation:      PID: 2571     Index: 14     Size: 32    Result: 698
+n / 2 computation:      PID: 2571     Index: 15     Size: 32    Result: 562
+n / 2 computation:      PID: 2614     Index: 0     Size: 16    Result: 805
+n / 2 computation:      PID: 2614     Index: 1     Size: 16    Result: 782
+n / 2 computation:      PID: 2614     Index: 2     Size: 16    Result: 1066
+n / 2 computation:      PID: 2614     Index: 3     Size: 16    Result: 1163
+n / 2 computation:      PID: 2614     Index: 4     Size: 16    Result: 1186
+n / 2 computation:      PID: 2614     Index: 5     Size: 16    Result: 1247
+n / 2 computation:      PID: 2614     Index: 6     Size: 16    Result: 1125
+n / 2 computation:      PID: 2614     Index: 7     Size: 16    Result: 867
+n / 2 computation:      PID: 2643     Index: 0     Size: 8    Result: 1991
+n / 2 computation:      PID: 2643     Index: 1     Size: 8    Result: 2029
+n / 2 computation:      PID: 2643     Index: 2     Size: 8    Result: 2191
+n / 2 computation:      PID: 2643     Index: 3     Size: 8    Result: 2030
+n / 2 computation:      PID: 2648     Index: 0     Size: 4    Result: 4182
+n / 2 computation:      PID: 2648     Index: 1     Size: 4    Result: 4059
+n / 2 computation:      PID: 2653     Index: 0     Size: 2    Result: 8241
+n / log(n) computation:      PID: 2654     Index: 0     Size: 6 
+n / log(n) computation:      PID: 2656     Index: 6     Size: 6 
+n / log(n) computation:      PID: 2663     Index: 12     Size: 6 
+n / log(n) computation:      PID: 2664     Index: 18     Size: 6 
+n / log(n) computation:      PID: 2665     Index: 24     Size: 6 
+n / log(n) computation:      PID: 2667     Index: 30     Size: 6 
+n / log(n) computation:      PID: 2672     Index: 36     Size: 6 
+n / log(n) computation:      PID: 2673     Index: 42     Size: 6 
+n / log(n) computation:      PID: 2674     Index: 48     Size: 6 
+n / log(n) computation:      PID: 2676     Index: 54     Size: 6 
+n / log(n) computation:      PID: 2678     Index: 60     Size: 6 
+n / log(n) computation:      PID: 2681     Index: 0     Size: 2 
+n / log(n) computation:      PID: 2683     Index: 2     Size: 2 
+n / log(n) computation:      PID: 2687     Index: 4     Size: 2 
+n / log(n) computation:      PID: 2688     Index: 6     Size: 2 
+n / log(n) computation:      PID: 2691     Index: 8     Size: 2 
+n / log(n) computation:      PID: 2703     Index: 0     Size: 2 
+n / log(n) computation:      PID: 2704     Index: 2     Size: 2 
+n / log(n) computation:      PID: 2709     Index: 4     Size: 2 
+n / log(n) computation:      PID: 2711     Index: 0     Size: 2 
+n / log(n) computation:      PID: 2714     Index: 0     Size: 2 
