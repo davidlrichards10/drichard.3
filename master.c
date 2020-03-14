@@ -13,6 +13,8 @@
 
 int shmid;
 void sigErrors(int signum);
+char fon[] = "adder_log";
+
 
 /* Struct to hold integer shared memory array */
 struct sharedMem
@@ -221,16 +223,19 @@ int main(int argc, char* argv[])
                 }
 	
 	gettimeofday(&tv2, NULL);
-	printf("Total time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
+	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
 	int sum = 0;
 	int t;
 	for(i=0; i<numbers; i++)
     	{
         	sum = sum + intShared->numbersSum[i];
     	}
-	printf("\n\nFinal Result = %d", sum);
-	printf("\nStarting n/log(n) computation\n");
-
+	printf("Final Result = %d", sum);
+	printf("\n\nStarting n/log(n) computation\n");
+	FILE* logFile = fopen(fon, "a");
+	fprintf(logFile, "\nFinal Result = %d", sum);
+	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
+	fclose(logFile);
 	/* Reset components for second computation*/
 	intShared->computationFlg = 0;
 
@@ -289,10 +294,16 @@ int main(int argc, char* argv[])
         		logNumberDistance = 2;
         		logNumbersToAdd = 2;
 	}
+	
 	gettimeofday(&tv4, NULL);
-        printf("Total time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
+
+        printf("\nTotal time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
+	
+	logFile = fopen(fon, "a");
 	
 	printf("Final Result = %d\n", sum);
+	fprintf(logFile, "\nFinal Result = %d", sum);
+	fclose(logFile);
 	
 	detach(); //detach shared memory
         sem_unlink("p3sem"); //unlink semaphore

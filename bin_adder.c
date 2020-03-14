@@ -126,7 +126,7 @@ int main(int argc, char *argv[])
                 sem_wait(sem2); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1); //wait 1 second before writing to the file
-		fprintf(file1, "n / log(n) computation:      PID: %d     Index: %d     Size: %d \n", getpid(), index, count);
+		fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d \n", getpid(), index, count);
 		wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem2); //signal the semaphore
