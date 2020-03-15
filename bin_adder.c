@@ -18,9 +18,8 @@
 
 struct sharedMem
 {
-        int numbers[1024];
+ 	int numbers[1024];
 	int numbersLog[1024];
-	int numbersSum[1024];
 	int computationFlg;
 };
 
@@ -96,24 +95,21 @@ int main(int argc, char *argv[])
 
 	if (intShared->computationFlg == 1)
 	{
-	
-	/* Loop for critical processes and display information regarding processes */
-        for (i = 0; i < (count / 2); i++, beginNum++, computationNum++)
-	{
-		int result = intShared->numbers[beginNum] + intShared->numbers[computationNum];
                 int num = (rand()%4); // store and create random number between 0 and 3 for sleep call
-		
-                sleep(num); // Sleep for a random amount of time bewteen 0 and 3 seconds
+        	sleep(num);
                 fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
                 sem_wait(sem); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1); //wait 1 second before writing to the file
-		fprintf(file1, "n / 2 computation:      PID: %d     Index: %d     Size: %d    Result: %d\n", getpid(), (index + i), count,result);
+                fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Values: %d and %d\n", getpid(), index, count, intShared->numbers[index], intShared->numbers[index+1]);
+                
+		int result = intShared->numbers[index];
+		int result2 = intShared->numbers[index+1];
+		intShared->numbers[0] += result + result2;
 		wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem); //signal the semaphore
-                intShared->numbers[beginNum] = result; //set result back
-        }
+		counter++;
 
 	fclose(file1);
 	}

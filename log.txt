@@ -1,3 +1,21 @@
+commit bebf1207ee81d5c956ab1ce6f7759a796b03d580
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Sat Mar 14 16:59:56 2020 -0500
+
+    performance analysis in README
+
+commit b88f203262cfc4e3751267b2a3d476f843a419ac
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Sat Mar 14 14:47:05 2020 -0500
+
+    second computation done
+
+commit 474e11514569c82391d5233f383f0fba2925ad22
+Author: David Richards <drichard@hoare7.cs.umsl.edu>
+Date:   Fri Mar 13 20:45:11 2020 -0500
+
+    log working kind of
+
 commit abfe855497ea2bd5591df1831bb0ba56310f751b
 Author: David Richards <drichard@hoare7.cs.umsl.edu>
 Date:   Fri Mar 13 12:10:09 2020 -0500

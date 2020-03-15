@@ -21,7 +21,6 @@ struct sharedMem
 {
         int numbers[1024];
 	int numbersLog[1024];
-	int numbersSum[1024];
 	int computationFlg;
 };
 
@@ -126,12 +125,6 @@ int main(int argc, char* argv[])
         	intShared->numbersLog[i] = intShared->numbers[i];
     	}
 
-	/* Copy shared memory array into shared memory array for sum output*/
-        for(i=0; i<n; i++)
-        {
-                intShared->numbersSum[i] = intShared->numbers[i];
-        }
-
 	/* Signal handler for Cntrl-c and alarm(100) */
         if (signal(SIGINT, sigErrors) == SIG_ERR) //sigerror on cntrl-c
         {
@@ -174,79 +167,91 @@ int main(int argc, char* argv[])
 		struct timeval tv1, tv2, tv3, tv4;
 		gettimeofday(&tv1, NULL);
 
-		/* Begin computation of n/2 */
-                while(k < numbers - 1)
-                {
-                        k = 0;
-                        if(active < 2)
-                        {
-                                pids[k] = fork(); //start forking processes
-                                if(pids[k] == 0)
+		double launchChild = 0;
+	int numbersTwo = n;
+	launchChild = numbersTwo / 2;
+	k = 0;
+	//int numbersTwo = n;
+	int index1 = 0;
+	double logNumberDistance;
+    	logNumberDistance = 2;
+    	int logNumbersToAdd = (int) logNumberDistance;
+	int loopCounter = 0;
+	int counter = 0;
+
+	int storeNumber = intShared->numbers[0];
+
+	gettimeofday(&tv3, NULL);
+	
+	for (i=0; i < numbers / 2; i++)
+	{
+		//while (index1 < numbersTwo) 
+		 for (i=0; i < numbers / 2; i++)
+		{
+		k = 0;		
+	  	pids[k] = fork(); //start forking processes
+                                
+				if(pids[k] == 0)
                                 {
                                         char index[20]; //store index of numbers
                                         char yy[20]; //store count of numbers
-                                        sprintf(index, "%d", k);
-                                        sprintf(yy, "%d", count);
+                                        sprintf(index, "%d", index1);
+                                        sprintf(yy, "%d", logNumbersToAdd);
                                         execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
                                         exit(0);
                                 }
-                                active++;
-                                k+=1;
-                                n--;
-                                if(active == 2){
 
-                                        int m;
-                                        for(m = 0; m < n; m++){
-                                                pid_t tempId = waitpid(pids[m], &status, WNOHANG);
-                                                if(tempId == 0){
-                                                        waitpid(tempId, &status, 0);
-                                                        active--;
-                                                        break;
-                                                }
-                                        }
-                                }
+				index1 += (int) logNumberDistance;
+				wpid = wait(&status);
+				
+		}
+				intShared->numbers[1] = intShared->numbers[(int)logNumberDistance];
+				
+				int z;
+        			for (z = 2; z < launchChild; z++) 
+				{
+            				intShared->numbers[z] = intShared->numbers[z * (int)logNumberDistance];
+        			}
+			index1 = 0;
+        		launchChild = launchChild / 2;
+			
+			if(launchChild == 1)
+			{
+            			if(loopCounter == 1)
+				{
+                			launchChild = 0;
+           			}
 
-                                if(k > numbers - 1){
-                                        while((wpid = wait(&status)) > 0);
-                                        break;
-                                }
-                                if (k > numbers)
-                                {
-                                        break;
-                                }
-                        }
-                        count = count / 2;
-                        if (count == 1) //break when count is equal; to 1
-                        {
-                                break;
-                        }
-                }
+            			loopCounter +=1;
+			}
+			numbersTwo /= logNumbersToAdd;
+        		logNumberDistance = 2;
+        		logNumbersToAdd = 2;
+	}
 	
 	gettimeofday(&tv2, NULL);
 	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
-	int sum = 0;
-	int t;
-	for(i=0; i<numbers; i++)
-    	{
-        	sum = sum + intShared->numbersSum[i];
-    	}
-	printf("Final Result = %d", sum);
-	printf("\n\nStarting n/log(n) computation\n");
+
 	FILE* logFile = fopen(fon, "a");
-	fprintf(logFile, "\nFinal Result = %d", sum);
+
+	printf("\n\nStarting n/log(n) computation\n");
+	
+	fprintf(logFile, "\nFinal Result Test= %d", intShared->numbers[0] - storeNumber);
 	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
+	
 	fclose(logFile);
+	
 	/* Reset components for second computation*/
 	intShared->computationFlg = 0;
 
-	double launchChild = 0;
+	launchChild = 0;
 	launchChild = ceil((double) numbers / log2((double) numbers));
 	k = 0;
-	int index1 = 0;
-	double logNumberDistance;
+	index1 = 0;
+	logNumberDistance;
     	logNumberDistance = log2(numbers);
-    	int logNumbersToAdd = (int) logNumberDistance;
-	int loopCounter = 0;
+    	logNumbersToAdd = (int) logNumberDistance;
+	loopCounter = 0;
 
 	gettimeofday(&tv3, NULL);
 	while (launchChild > 0)
@@ -259,11 +264,11 @@ int main(int argc, char* argv[])
                                 
 				if(pids[k] == 0)
                                 {
-                                        char index[20]; //store index of numbers
-                                        char yy[20]; //store count of numbers
-                                        sprintf(index, "%d", index1);
-                                        sprintf(yy, "%d", logNumbersToAdd);
-                                        execl("./bin_adder",index,yy,NULL); //exec to bin_adder.c
+                                        char xxLog[20]; //store index of numbers
+                                        char yyLog[20]; //store count of numbers
+                                        sprintf(xxLog, "%d", index1);
+                                        sprintf(yyLog, "%d", logNumbersToAdd);
+                                        execl("./bin_adder",xxLog,yyLog,NULL); //exec to bin_adder.c
                                         exit(0);
                                 }
 
@@ -301,8 +306,6 @@ int main(int argc, char* argv[])
 	
 	logFile = fopen(fon, "a");
 	
-	printf("Final Result = %d\n", sum);
-	fprintf(logFile, "\nFinal Result = %d", sum);
 	fclose(logFile);
 	
 	detach(); //detach shared memory
