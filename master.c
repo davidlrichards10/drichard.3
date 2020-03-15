@@ -254,7 +254,7 @@ int main(int argc, char* argv[])
 
 	/* Reset variables for second computation */
 	launchChild = 0;
-	launchChild = ceil((double) numbers / log2((double) numbers));
+	launchChild = (double) numbers / ceil(log2((double) numbers));
 	k = 0;
 	index1 = 0;
 	logNumberDistance;
