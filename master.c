@@ -180,7 +180,10 @@ int main(int argc, char* argv[])
 	int counter = 0;
 
 	int storeNumber = intShared->numbers[0];
-
+	FILE* logFile = fopen(fon, "a");
+	fprintf(logFile, "n/2 computation:         PID\t\tIndex\t\tSize\t\tValues\t\t\tResult\n\n");
+	
+	fclose(logFile);
 	gettimeofday(&tv3, NULL);
 	
 	for (i=0; i < numbers / 2; i++)
@@ -233,11 +236,12 @@ int main(int argc, char* argv[])
 	gettimeofday(&tv2, NULL);
 	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
 
-	FILE* logFile = fopen(fon, "a");
+	logFile = fopen(fon, "a");
 
 	printf("\n\nStarting n/log(n) computation\n");
 	fprintf(logFile, "Final Result = %d\n ", intShared->numbers[0]);	
 	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
+	fprintf(logFile, "n/log(n) computation:    PID\t\tIndex\t\tSize\t\tValues\t\t\t\t\tResult\n\n");
 	
 	fclose(logFile);
 	
@@ -254,13 +258,16 @@ int main(int argc, char* argv[])
 	loopCounter = 0;
 
 	gettimeofday(&tv3, NULL);
+
 	while (launchChild > 0)
+	//for (i=0; i < numbers / logNumberDistance; i++)
 	{
 
 		while (index1 < numbers) 
+		//for (i=0; i < numbers + 2; i++)
 		{
-		k = 0;		
-	  	pids[k] = fork(); //start forking processes
+			k = 0;		
+	  		pids[k] = fork(); //start forking processes
                                 
 				if(pids[k] == 0)
                                 {
@@ -295,6 +302,7 @@ int main(int argc, char* argv[])
 
             			loopCounter +=1;
 			}
+			
 			numbers /= logNumbersToAdd;
         		logNumberDistance = 2;
         		logNumbersToAdd = 2;

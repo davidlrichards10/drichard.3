@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
                 sem_wait(sem); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1); //wait 1 second before writing to the file
-                fprintf(file1, "n / 2 computation: PID: %d     Index: %d     Size: %d Values: %d and %d Result = %d\n", getpid(), index, count, intShared->numbers[index], intShared->numbers[index+1], intShared->numbers[index] + intShared->numbers[index + 1]);
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d\t\t%d\n", getpid(), index, count, intShared->numbers[index], intShared->numbers[index+1], intShared->numbers[index] + intShared->numbers[index + 1]);
                 
 		int result = intShared->numbers[index];
 		int result2 = intShared->numbers[index+1];
@@ -124,19 +124,50 @@ int main(int argc, char *argv[])
 		wait(1); //wait 1 second before writing to the file
 		if(count == 2)
 		{
-			fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Result = %d\n", getpid(), index, count, intShared->numbersLog[index] + intShared->numbersLog[index + 1]);
+		fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d\t\t\t\t%d\n", getpid(), index, count,intShared->numbers[index], intShared->numbers[index+1], intShared->numbersLog[index] + intShared->numbersLog[index + 1]);
                 int resultLog = intShared->numbersLog[index];
                 int result2Log = intShared->numbersLog[index+1];
                 intShared->numbersLog[index] = resultLog + result2Log;
 		}
 		if(count == 3)
 		{
-		fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Result = %d\n", getpid(), index, count, intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+3]);
+		fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d and %d\t\t\t\t%d\n", getpid(), index, count,intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2],intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+2]);
 		int resultLog = intShared->numbersLog[index];
                 int result2Log = intShared->numbersLog[index+1];
 		int result3Log = intShared->numbersLog[index+2];
                 intShared->numbersLog[index] = resultLog + result2Log + result3Log;
 		}
+		if(count == 4)
+                {
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d and %d and %d\t\t\t\t%d\n", getpid(), index, count,intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3]);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                int result3Log = intShared->numbersLog[index+2];
+                int result4Log = intShared->numbersLog[index+3];
+		intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log;
+                }
+		if(count == 5)
+                {
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d and %d and %d and %d\t\t\t\t%d\n", getpid(), index, count,intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4] ,intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4]);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                int result3Log = intShared->numbersLog[index+2];
+                int result4Log = intShared->numbersLog[index+3];
+		int result5Log = intShared->numbersLog[index+4];
+		intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log;
+                }
+		if(count == 6)
+                {
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d and %d and %d and %d and %d and %d\t\t\t%d\n", getpid(), index, count,intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],intShared->numbersLog[index+5],intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4] + intShared->numbersLog[index+5]);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                int result3Log = intShared->numbersLog[index+2];
+                int result4Log = intShared->numbersLog[index+3];
+                int result5Log = intShared->numbersLog[index+4];
+		int result6Log = intShared->numbersLog[index+5];
+                intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log + result6Log;
+                }
+
 		wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem2); //signal the semaphore
