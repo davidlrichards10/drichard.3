@@ -56,7 +56,8 @@ void detach()
 /* Main program */
 int main(int argc, char* argv[])
 {
-        int n = 64; //default random numbers to generate is 64
+	/* Default random numbers to generate is 64 */
+        int n = 64;
         int c;
 
 	/* Using getopt to parse command line options for -h and -n */
@@ -79,8 +80,8 @@ int main(int argc, char* argv[])
         	}
 	}
 
-
-        setUp(); //setup shared memory
+	/* Set up shared memory */
+        setUp();
 
 	/* Open the inFile to write to it */
         FILE *file = fopen("intFile", "w");
@@ -145,6 +146,7 @@ int main(int argc, char* argv[])
                 exit(0);
         }
 	
+	/* Create the semaphore used to protect the critical section  of n/log(n) */
 	sem_t* sem2;
 	sem2 = sem_open("p3sem2", O_CREAT, 0645, 1);
 	if(sem2 == SEM_FAILED)
@@ -152,26 +154,21 @@ int main(int argc, char* argv[])
 		perror("Error in sem_open for sem 2");
 		exit(0);
 	}
-		intShared->computationFlg = 1;
+	
+	/* Set the computation flag to 1 and start 100 second alarm */
+	intShared->computationFlg = 1;
+        alarm(100);
 
-                //alarm(100); //set alarm to terminate after 100 seconds
-                int status;
-                int numbers = n;
-                int active = 1;
-                int k;
-                int count = n;
-                pid_t pids[n],wpid;
-
-		printf("\nStarting n/2 computation\n");
-
-		struct timeval tv1, tv2, tv3, tv4;
-		gettimeofday(&tv1, NULL);
-
-		double launchChild = 0;
+        int status;
+        int numbers = n;
+        int active = 1;
+        int k;
+        int count = n;
+        pid_t pids[n],wpid;
+	double launchChild = 0;
 	int numbersTwo = n;
 	launchChild = numbersTwo / 2;
 	k = 0;
-	//int numbersTwo = n;
 	int index1 = 0;
 	double logNumberDistance;
     	logNumberDistance = 2;
@@ -179,12 +176,18 @@ int main(int argc, char* argv[])
 	int loopCounter = 0;
 	int counter = 0;
 
-	int storeNumber = intShared->numbers[0];
+	/* Get the current time for printing later */
+        struct timeval tv1, tv2, tv3, tv4;
+        gettimeofday(&tv1, NULL);
+
+	/* Write the header to adder_log for n/2 */
 	FILE* logFile = fopen(fon, "a");
 	fprintf(logFile, "n/2 computation:         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	gettimeofday(&tv3, NULL);
+	
+	printf("\nStarting n/2 computation\n");
 	
 	for (i=0; i < numbers / 2; i++)
 	{
@@ -233,21 +236,23 @@ int main(int argc, char* argv[])
         		logNumbersToAdd = 2;
 	}
 	
+	/* Print total time taken for n/2 and the final result to the screen */
 	gettimeofday(&tv2, NULL);
 	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
-
+	printf("Final Result = %d\n ", intShared->numbers[0]);
 	logFile = fopen(fon, "a");
-
-	printf("\n\nStarting n/log(n) computation\n");
+	
+	/* Print final result and header for n/log(n) to adder_log */
 	fprintf(logFile, "Final Result = %d\n ", intShared->numbers[0]);	
 	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
 	fprintf(logFile, "n/log(n) computation:    PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	
-	/* Reset components for second computation*/
+	/* Set computation flag to 0 for second computation */
 	intShared->computationFlg = 0;
 
+	/* Reset variables for second computation */
 	launchChild = 0;
 	launchChild = ceil((double) numbers / log2((double) numbers));
 	k = 0;
@@ -256,15 +261,15 @@ int main(int argc, char* argv[])
     	logNumberDistance = log2(numbers);
     	logNumbersToAdd = (int) logNumberDistance;
 	loopCounter = 0;
+	
+	printf("\n\nStarting n/log(n) computation\n");
 
 	gettimeofday(&tv3, NULL);
 
 	while (launchChild > 0)
-	//for (i=0; i < numbers / logNumberDistance; i++)
 	{
 
 		while (index1 < numbers) 
-		//for (i=0; i < numbers + 2; i++)
 		{
 			k = 0;		
 	  		pids[k] = fork(); //start forking processes
@@ -310,19 +315,24 @@ int main(int argc, char* argv[])
 	
 	gettimeofday(&tv4, NULL);
 
+	/* Print total time and final result for n/log(n) to screen */
         printf("\nTotal time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
-	
+	printf("Final Result = %d\n ", intShared->numbersLog[0]);	
+
+	/* Print final result for n/log(n) to adder_log */
 	logFile = fopen(fon, "a");
 	fprintf(logFile, "Final Result = %d\n ", intShared->numbersLog[0]);
 	fclose(logFile);
 	
-	detach(); //detach shared memory
-        sem_unlink("p3sem"); //unlink semaphore
+	/* Detach shared memory and unlink both semaphores */
+	detach(); 
+        sem_unlink("p3sem"); 
 	sem_unlink("p3sem2");
         return 0;
 }
 
-void sigErrors(int signum) //function for signal handling, either 100 second alarm or Ctrl-c
+/* Function for signal handling, either 100 second alarm or Ctrl-c */
+void sigErrors(int signum)
 {
         if (signum == SIGINT)
         {
