@@ -181,7 +181,7 @@ int main(int argc, char* argv[])
 
 	int storeNumber = intShared->numbers[0];
 	FILE* logFile = fopen(fon, "a");
-	fprintf(logFile, "n/2 computation:         PID\t\tIndex\t\tSize\t\tValues\t\t\tResult\n\n");
+	fprintf(logFile, "n/2 computation:         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	gettimeofday(&tv3, NULL);
@@ -241,7 +241,7 @@ int main(int argc, char* argv[])
 	printf("\n\nStarting n/log(n) computation\n");
 	fprintf(logFile, "Final Result = %d\n ", intShared->numbers[0]);	
 	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
-	fprintf(logFile, "n/log(n) computation:    PID\t\tIndex\t\tSize\t\tValues\t\t\t\t\tResult\n\n");
+	fprintf(logFile, "n/log(n) computation:    PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	
