@@ -185,8 +185,8 @@ int main(int argc, char* argv[])
 	
 	for (i=0; i < numbers / 2; i++)
 	{
-		//while (index1 < numbersTwo) 
-		 for (i=0; i < numbers / 2; i++)
+		while (index1 < numbersTwo - 1) 
+		//for (i=0; i < numbers / 2; i++)
 		{
 		k = 0;		
 	  	pids[k] = fork(); //start forking processes
@@ -224,6 +224,7 @@ int main(int argc, char* argv[])
 
             			loopCounter +=1;
 			}
+
 			numbersTwo /= logNumbersToAdd;
         		logNumberDistance = 2;
         		logNumbersToAdd = 2;
@@ -235,8 +236,7 @@ int main(int argc, char* argv[])
 	FILE* logFile = fopen(fon, "a");
 
 	printf("\n\nStarting n/log(n) computation\n");
-	
-	fprintf(logFile, "\nFinal Result Test= %d", intShared->numbers[0] - storeNumber);
+	fprintf(logFile, "Final Result = %d\n ", intShared->numbers[0]);	
 	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
 	
 	fclose(logFile);
@@ -305,7 +305,7 @@ int main(int argc, char* argv[])
         printf("\nTotal time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
 	
 	logFile = fopen(fon, "a");
-	
+	fprintf(logFile, "Final Result = %d\n ", intShared->numbersLog[0]);
 	fclose(logFile);
 	
 	detach(); //detach shared memory

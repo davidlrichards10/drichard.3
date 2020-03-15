@@ -101,11 +101,11 @@ int main(int argc, char *argv[])
                 sem_wait(sem); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
                 wait(1); //wait 1 second before writing to the file
-                fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Values: %d and %d\n", getpid(), index, count, intShared->numbers[index], intShared->numbers[index+1]);
+                fprintf(file1, "n / 2 computation: PID: %d     Index: %d     Size: %d Values: %d and %d Result = %d\n", getpid(), index, count, intShared->numbers[index], intShared->numbers[index+1], intShared->numbers[index] + intShared->numbers[index + 1]);
                 
 		int result = intShared->numbers[index];
 		int result2 = intShared->numbers[index+1];
-		intShared->numbers[0] += result + result2;
+		intShared->numbers[index] = result + result2;
 		wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem); //signal the semaphore
@@ -121,8 +121,22 @@ int main(int argc, char *argv[])
 		fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
                 sem_wait(sem2); //wait for semaphore
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
-                wait(1); //wait 1 second before writing to the file
-		fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d \n", getpid(), index, count);
+		wait(1); //wait 1 second before writing to the file
+		if(count == 2)
+		{
+			fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Result = %d\n", getpid(), index, count, intShared->numbersLog[index] + intShared->numbersLog[index + 1]);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                intShared->numbersLog[index] = resultLog + result2Log;
+		}
+		if(count == 3)
+		{
+		fprintf(file1, "n / log(n) computation: PID: %d     Index: %d     Size: %d Result = %d\n", getpid(), index, count, intShared->numbersLog[index] + intShared->numbersLog[index + 1] + intShared->numbersLog[index+3]);
+		int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+		int result3Log = intShared->numbersLog[index+2];
+                intShared->numbersLog[index] = resultLog + result2Log + result3Log;
+		}
 		wait(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem2); //signal the semaphore
