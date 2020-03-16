@@ -182,7 +182,7 @@ int main(int argc, char* argv[])
 
 	/* Write the header to adder_log for n/2 */
 	FILE* logFile = fopen(fon, "a");
-	fprintf(logFile, "n/2 computation:         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
+	fprintf(logFile, "n/2 computation\n                         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	gettimeofday(&tv3, NULL);
@@ -244,8 +244,8 @@ int main(int argc, char* argv[])
 	
 	/* Print final result and header for n/log(n) to adder_log */
 	fprintf(logFile, "Final Result = %d\n ", intShared->numbers[0]);	
-	fprintf(logFile, "\n-------------------------------------------------------------------------------------------------------\n");
-	fprintf(logFile, "n/log(n) computation:    PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
+	fprintf(logFile, "\n-----------------------------------------------------------------------------------------------------------------\n");
+	fprintf(logFile, "n/log(n) computation:\n                         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
 	
