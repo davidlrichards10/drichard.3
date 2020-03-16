@@ -7,12 +7,14 @@ Invocation: ./master [-h] [-n x]
 =======================================================================================================================
 How to Run:
                 1. Type make
-                2. Run the executable by typing ./master [-h] [-n x]
+                2. Run the executable by typing ./master [-h] [-n x -t x]
                 3. ./master alone will run with the following default ./master -n 64
 		4. Default files names (File holding random integers (intFile)
 		5. Default file names (File that outputs computation info (adder_log)
                 6. -h   = describe how the project should be run and then terminate
                    -n x = Number of random integers [0,256) to print to input file named (intFile) (Default 64)
+		   -t x = Indicate the alarm in seconds that you want to limit runtime to.
+			  Suggest 200 seconds for 32 integers and 300 seconds for 64 integers.
 		7. The child processes will update file (adder_log) to tell you what has been done, including
 		   computation results
                 8. Type make clean to remove (intFile, adder_log, master, bin_adder, master.o and bin_adder.o)
@@ -20,27 +22,71 @@ How to Run:
 Version Control (logging technique used)
                 1. My log files are included in /classes/OS/drichard/drichard.3/log.txt
 =======================================================================================================================
-1. All project requirments met
-2. Makefile follows proper suffix rules
-3. Currently no known issues
+Comments on submission: All project requirments met
+
+		1. I decided to include the option for the user to enter the value of the timer on the command
+		   line since for 32 and 64 processes the timer exeeds 100 seconds. The default value is still
+		   100 seconds. 
+		2. Also for the size in the n/2 processes the value is always 2 because the amount of numbers 
+		   actually being added is always = 2. The size changes for n/log(n) which is expected.
+		3. Below, I decided to include my results for 4,8,16 and 32 integers as well as 64 as required.
+		   I did this so that you are able to see how my program runs for different sets of integers.
 =======================================================================================================================
 Comments on performance: 
 
 =======================================================================================================================
-Performance:
---------------------------n = 4----------------------------
+Performance: 
+------------------------------n = 64----------------------------------
+Log file (adder_log) and Integer file (intFile) included in submission
 
+300 second timer
+------------------------------------------------------------
+--------------------------n = 4-----------------------------
+Total time taken for n / 2 processes: 12.000597 seconds
+Final Result = 791
+
+Total time taken for n / log(n) processes: 12.000555 seconds
+Final Result = 791
+
+Numbers: 235,237,256,63
+
+Timer value: 100 second timer
 ------------------------------------------------------------
 --------------------------n = 8-----------------------------
+Total time taken for n / 2 processes: 28.001209 seconds
+Final Result = 721
 
+Total time taken for n / log(n) processes: 20.000942 seconds
+Final Result = 721
+
+Numbers: 170,117,4,94,54,176,81,25
+
+Timer value: 100 second timer
 ------------------------------------------------------------
 --------------------------n = 16----------------------------
+16
+Total time taken for n / 2 processes: 52.002753 seconds
+Final Result = 2255
 
+Total time taken for n / log(n) processes: 23.001271 seconds
+Final Result = 2255
+
+Numbers: 234,109,120,106,195,142,118,77,127,182,94,104,200,
+	 95,170,182
+
+Timer value: 100 second timer
 ------------------------------------------------------------
 --------------------------n = 32----------------------------
+Total time taken for n / 2 processes: 101.005612 seconds
+Final Result = 4506
 
-------------------------------------------------------------
---------------------------n = 64----------------------------
+Total time taken for n / log(n) processes: 47.002488 seconds
+Final Result = 4506
 
+Numbers: 69,198,30,56,236,251,45,31,256,236,151,182,144,
+	 136,233,41,29,222,10,144,145,180,206,149,205,
+	 220,144,97,162,60,6,232
+
+Timer value: 200 second timer
 ------------------------------------------------------------
 =======================================================================================================================        

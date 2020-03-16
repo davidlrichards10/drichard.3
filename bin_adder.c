@@ -83,45 +83,42 @@ int main(int argc, char *argv[])
         FILE* file1;
         file1 = fopen("adder_log", "a");
 
-	/* Set timer */
+	/* Set time */
         const time_t tma = time(NULL);
         char * tme = ctime( & tma);
 	
-	/* Starting values of the variables to update the shared memory array */
-        beginNum = index;
-        computationNum = index + (count / 2);
-
-	int counter = 0;	
-
+	/* If computation flag is 1 perform n/2 computation */
 	if (intShared->computationFlg == 1)
 	{
                 int num = (rand()%4); // store and create random number between 0 and 3 for sleep call
         	sleep(num);
                 fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
-                sem_wait(sem); //wait for semaphore
+                sem_wait(sem);
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
-                sleep(1); //wait 1 second before writing to the file
+                sleep(1);
+		/* Print PID, index, size, time, values and result to adder_log */ 
                 fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d\n%s\n", getpid(), index, count,intShared->numbers[index] + intShared->numbers[index+1], intShared->numbers[index], intShared->numbers[index+1],tme);
                 
 		int result = intShared->numbers[index];
 		int result2 = intShared->numbers[index+1];
 		intShared->numbers[index] = result + result2;
-		sleep(1); //wait one second before leaving the critical section
+		sleep(1);
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
-                sem_post(sem); //signal the semaphore
-		counter++;
+                sem_post(sem);
 
-	fclose(file1);
+		fclose(file1);
 	}
 	
+	/* If computation flag is 0 perform second calculation */
 	else
 	{
 		int numLog = (rand()%4);
 		sleep(numLog);
 		fprintf(stderr, "Process: %d attempting to enter critical section at time: %s seconds\n", getpid(), tme);
-                sem_wait(sem2); //wait for semaphore
+                sem_wait(sem2); 
                 fprintf(stderr, "Process %d has entered critical section at time: %s seconds\n", getpid(), tme);
-		sleep(1); //wait 1 second before writing to the file
+		sleep(1);
+		/* If groups of 2 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 2)
 		{
 		fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1], intShared->numbersLog[index], intShared->numbersLog[index+1],tme);
@@ -129,6 +126,7 @@ int main(int argc, char *argv[])
                 int result2Log = intShared->numbersLog[index+1];
                 intShared->numbersLog[index] = resultLog + result2Log;
 		}
+		/* If groups of 3 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 3)
 		{
 		fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2],tme);
@@ -137,6 +135,7 @@ int main(int argc, char *argv[])
 		int result3Log = intShared->numbersLog[index+2];
                 intShared->numbersLog[index] = resultLog + result2Log + result3Log;
 		}
+		/* If groups of 4 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 4)
                 {
                 fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],tme);
@@ -146,6 +145,7 @@ int main(int argc, char *argv[])
                 int result4Log = intShared->numbersLog[index+3];
 		intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log;
                 }
+		/* If groups of 5 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 5)
                 {
                 fprintf(file1, "                         %d\t\t%d\t\t%d\t\t\%d\t\t%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],tme);
@@ -156,6 +156,7 @@ int main(int argc, char *argv[])
 		int result5Log = intShared->numbersLog[index+4];
 		intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log;
                 }
+		/* If groups of 6 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 6)
                 {
                 fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4] + intShared->numbersLog[index+5], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],intShared->numbersLog[index+5],tme);

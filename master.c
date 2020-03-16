@@ -56,7 +56,7 @@ void detach()
 /* Main program */
 int main(int argc, char* argv[])
 {
-	/* Default random numbers to generate is 64 */
+	/* Default random numbers to generate is 64  and alarm is 100 */
         int n = 64;
         int c;
 	int timerAmount = 100;
@@ -71,7 +71,7 @@ int main(int argc, char* argv[])
                 printf("-------------------------------------------------Program Options--------------------------------------------------\n");
                 printf("       -h             Describe how the project should be run and then, terminate\n");
                 printf("       -n x           Indicate amount of random numbers to generate (Default of 64)\n");
-                printf("       -t x           Indicate alarm timer (Default of 100 seconds)(Suggest 300 for 64 processes)\n");
+                printf("       -t x           Indicate alarm timer (Default of 100 seconds)(Do 200 seconds for 32 integers and 300 for 64)\n");
 		return EXIT_SUCCESS;
         case 'n':
                 n = atoi(optarg);
