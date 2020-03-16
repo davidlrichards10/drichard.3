@@ -59,21 +59,26 @@ int main(int argc, char* argv[])
 	/* Default random numbers to generate is 64 */
         int n = 64;
         int c;
+	int timerAmount = 100;
 
 	/* Using getopt to parse command line options for -h and -n */
-        while((c=getopt(argc, argv, "n:h"))!= EOF)
+        while((c=getopt(argc, argv, "n:t:h"))!= EOF)
         {
                 switch(c)
                 {
         case 'h':
-                printf("\nInvocation: master [-h] [-n x]\n");
+                printf("\nInvocation: master [-h] [-n x -t x]\n");
                 printf("-------------------------------------------------Program Options--------------------------------------------------\n");
                 printf("       -h             Describe how the project should be run and then, terminate\n");
                 printf("       -n x           Indicate amount of random numbers to generate (Default of 64)\n");
-                return EXIT_SUCCESS;
+                printf("       -t x           Indicate alarm timer (Default of 100 seconds)(Suggest 300 for 64 processes)\n");
+		return EXIT_SUCCESS;
         case 'n':
                 n = atoi(optarg);
                 break;
+	case 't':
+		timerAmount = atoi(optarg);
+		break;
         default:
                 return -1;
 
@@ -157,7 +162,7 @@ int main(int argc, char* argv[])
 	
 	/* Set the computation flag to 1 and start 100 second alarm */
 	intShared->computationFlg = 1;
-        //alarm(100);
+        alarm(timerAmount);
 
         int status;
         int numbers = n;

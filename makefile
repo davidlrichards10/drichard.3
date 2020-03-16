@@ -18,4 +18,5 @@ $(OBJ1): $(SRC1)
 clean:
 	/bin/rm -f *.o $(TARGET)
 	/bin/rm -f *.o $(TARGET1)
-
+	/bin/rm -f intFile
+	/bin/rm -f adder_log
