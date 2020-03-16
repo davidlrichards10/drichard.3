@@ -1,84 +1,263 @@
-n / 2 computation:      PID: 2501     Index: 0     Size: 64    Result: 245
-n / 2 computation:      PID: 2501     Index: 1     Size: 64    Result: 387
-n / 2 computation:      PID: 2501     Index: 2     Size: 64    Result: 338
-n / 2 computation:      PID: 2501     Index: 3     Size: 64    Result: 271
-n / 2 computation:      PID: 2501     Index: 4     Size: 64    Result: 340
-n / 2 computation:      PID: 2501     Index: 5     Size: 64    Result: 309
-n / 2 computation:      PID: 2501     Index: 6     Size: 64    Result: 244
-n / 2 computation:      PID: 2501     Index: 7     Size: 64    Result: 217
-n / 2 computation:      PID: 2501     Index: 8     Size: 64    Result: 127
-n / 2 computation:      PID: 2501     Index: 9     Size: 64    Result: 169
-n / 2 computation:      PID: 2501     Index: 10     Size: 64    Result: 186
-n / 2 computation:      PID: 2501     Index: 11     Size: 64    Result: 73
-n / 2 computation:      PID: 2501     Index: 12     Size: 64    Result: 274
-n / 2 computation:      PID: 2501     Index: 13     Size: 64    Result: 331
-n / 2 computation:      PID: 2501     Index: 14     Size: 64    Result: 324
-n / 2 computation:      PID: 2501     Index: 15     Size: 64    Result: 357
-n / 2 computation:      PID: 2501     Index: 16     Size: 64    Result: 227
-n / 2 computation:      PID: 2501     Index: 17     Size: 64    Result: 170
-n / 2 computation:      PID: 2501     Index: 18     Size: 64    Result: 309
-n / 2 computation:      PID: 2501     Index: 19     Size: 64    Result: 454
-n / 2 computation:      PID: 2501     Index: 20     Size: 64    Result: 483
-n / 2 computation:      PID: 2501     Index: 21     Size: 64    Result: 367
-n / 2 computation:      PID: 2501     Index: 22     Size: 64    Result: 183
-n / 2 computation:      PID: 2501     Index: 23     Size: 64    Result: 88
-n / 2 computation:      PID: 2501     Index: 24     Size: 64    Result: 206
-n / 2 computation:      PID: 2501     Index: 25     Size: 64    Result: 56
-n / 2 computation:      PID: 2501     Index: 26     Size: 64    Result: 233
-n / 2 computation:      PID: 2501     Index: 27     Size: 64    Result: 365
-n / 2 computation:      PID: 2501     Index: 28     Size: 64    Result: 89
-n / 2 computation:      PID: 2501     Index: 29     Size: 64    Result: 240
-n / 2 computation:      PID: 2501     Index: 30     Size: 64    Result: 374
-n / 2 computation:      PID: 2501     Index: 31     Size: 64    Result: 205
-n / 2 computation:      PID: 2571     Index: 0     Size: 32    Result: 472
-n / 2 computation:      PID: 2571     Index: 1     Size: 32    Result: 557
-n / 2 computation:      PID: 2571     Index: 2     Size: 32    Result: 647
-n / 2 computation:      PID: 2571     Index: 3     Size: 32    Result: 725
-n / 2 computation:      PID: 2571     Index: 4     Size: 32    Result: 823
-n / 2 computation:      PID: 2571     Index: 5     Size: 32    Result: 676
-n / 2 computation:      PID: 2571     Index: 6     Size: 32    Result: 427
-n / 2 computation:      PID: 2571     Index: 7     Size: 32    Result: 305
-n / 2 computation:      PID: 2571     Index: 8     Size: 32    Result: 333
-n / 2 computation:      PID: 2571     Index: 9     Size: 32    Result: 225
-n / 2 computation:      PID: 2571     Index: 10     Size: 32    Result: 419
-n / 2 computation:      PID: 2571     Index: 11     Size: 32    Result: 438
-n / 2 computation:      PID: 2571     Index: 12     Size: 32    Result: 363
-n / 2 computation:      PID: 2571     Index: 13     Size: 32    Result: 571
-n / 2 computation:      PID: 2571     Index: 14     Size: 32    Result: 698
-n / 2 computation:      PID: 2571     Index: 15     Size: 32    Result: 562
-n / 2 computation:      PID: 2614     Index: 0     Size: 16    Result: 805
-n / 2 computation:      PID: 2614     Index: 1     Size: 16    Result: 782
-n / 2 computation:      PID: 2614     Index: 2     Size: 16    Result: 1066
-n / 2 computation:      PID: 2614     Index: 3     Size: 16    Result: 1163
-n / 2 computation:      PID: 2614     Index: 4     Size: 16    Result: 1186
-n / 2 computation:      PID: 2614     Index: 5     Size: 16    Result: 1247
-n / 2 computation:      PID: 2614     Index: 6     Size: 16    Result: 1125
-n / 2 computation:      PID: 2614     Index: 7     Size: 16    Result: 867
-n / 2 computation:      PID: 2643     Index: 0     Size: 8    Result: 1991
-n / 2 computation:      PID: 2643     Index: 1     Size: 8    Result: 2029
-n / 2 computation:      PID: 2643     Index: 2     Size: 8    Result: 2191
-n / 2 computation:      PID: 2643     Index: 3     Size: 8    Result: 2030
-n / 2 computation:      PID: 2648     Index: 0     Size: 4    Result: 4182
-n / 2 computation:      PID: 2648     Index: 1     Size: 4    Result: 4059
-n / 2 computation:      PID: 2653     Index: 0     Size: 2    Result: 8241
-n / log(n) computation:      PID: 2654     Index: 0     Size: 6 
-n / log(n) computation:      PID: 2656     Index: 6     Size: 6 
-n / log(n) computation:      PID: 2663     Index: 12     Size: 6 
-n / log(n) computation:      PID: 2664     Index: 18     Size: 6 
-n / log(n) computation:      PID: 2665     Index: 24     Size: 6 
-n / log(n) computation:      PID: 2667     Index: 30     Size: 6 
-n / log(n) computation:      PID: 2672     Index: 36     Size: 6 
-n / log(n) computation:      PID: 2673     Index: 42     Size: 6 
-n / log(n) computation:      PID: 2674     Index: 48     Size: 6 
-n / log(n) computation:      PID: 2676     Index: 54     Size: 6 
-n / log(n) computation:      PID: 2678     Index: 60     Size: 6 
-n / log(n) computation:      PID: 2681     Index: 0     Size: 2 
-n / log(n) computation:      PID: 2683     Index: 2     Size: 2 
-n / log(n) computation:      PID: 2687     Index: 4     Size: 2 
-n / log(n) computation:      PID: 2688     Index: 6     Size: 2 
-n / log(n) computation:      PID: 2691     Index: 8     Size: 2 
-n / log(n) computation:      PID: 2703     Index: 0     Size: 2 
-n / log(n) computation:      PID: 2704     Index: 2     Size: 2 
-n / log(n) computation:      PID: 2709     Index: 4     Size: 2 
-n / log(n) computation:      PID: 2711     Index: 0     Size: 2 
-n / log(n) computation:      PID: 2714     Index: 0     Size: 2 
+n/2 computation
+                         PID		Index		Size		Result		Values
+
+                         22295		0		2		209		29+180
+Mon Mar 16 12:42:37 2020
+
+                         22304		2		2		131		102+29
+Mon Mar 16 12:42:42 2020
+
+                         22309		4		2		331		134+197
+Mon Mar 16 12:42:46 2020
+
+                         22314		6		2		235		31+204
+Mon Mar 16 12:42:50 2020
+
+                         22318		8		2		427		253+174
+Mon Mar 16 12:42:53 2020
+
+                         22322		10		2		19		13+6
+Mon Mar 16 12:42:57 2020
+
+                         22326		12		2		73		29+44
+Mon Mar 16 12:43:01 2020
+
+                         22331		14		2		427		194+233
+Mon Mar 16 12:43:06 2020
+
+                         22334		16		2		217		120+97
+Mon Mar 16 12:43:09 2020
+
+                         22339		18		2		282		114+168
+Mon Mar 16 12:43:13 2020
+
+                         22342		20		2		122		112+10
+Mon Mar 16 12:43:16 2020
+
+                         22353		22		2		400		211+189
+Mon Mar 16 12:43:21 2020
+
+                         22365		24		2		430		250+180
+Mon Mar 16 12:43:26 2020
+
+                         22372		26		2		267		37+230
+Mon Mar 16 12:43:29 2020
+
+                         22380		28		2		214		53+161
+Mon Mar 16 12:43:34 2020
+
+                         22385		30		2		293		211+82
+Mon Mar 16 12:43:38 2020
+
+                         22395		32		2		396		212+184
+Mon Mar 16 12:43:43 2020
+
+                         22398		34		2		328		239+89
+Mon Mar 16 12:43:46 2020
+
+                         22401		36		2		138		124+14
+Mon Mar 16 12:43:48 2020
+
+                         22405		38		2		413		165+248
+Mon Mar 16 12:43:51 2020
+
+                         22408		40		2		366		188+178
+Mon Mar 16 12:43:53 2020
+
+                         22413		42		2		214		125+89
+Mon Mar 16 12:43:58 2020
+
+                         22416		44		2		285		222+63
+Mon Mar 16 12:44:01 2020
+
+                         22419		46		2		279		65+214
+Mon Mar 16 12:44:04 2020
+
+                         22423		48		2		81		31+50
+Mon Mar 16 12:44:07 2020
+
+                         22426		50		2		397		253+144
+Mon Mar 16 12:44:10 2020
+
+                         22429		52		2		269		61+208
+Mon Mar 16 12:44:12 2020
+
+                         22433		54		2		386		204+182
+Mon Mar 16 12:44:16 2020
+
+                         22444		56		2		373		131+242
+Mon Mar 16 12:44:21 2020
+
+                         22452		58		2		210		155+55
+Mon Mar 16 12:44:24 2020
+
+                         22459		60		2		254		17+237
+Mon Mar 16 12:44:27 2020
+
+                         22464		62		2		237		8+229
+Mon Mar 16 12:44:29 2020
+
+                         22468		0		2		340		209+131
+Mon Mar 16 12:44:31 2020
+
+                         22473		2		2		566		331+235
+Mon Mar 16 12:44:33 2020
+
+                         22475		4		2		446		427+19
+Mon Mar 16 12:44:35 2020
+
+                         22482		6		2		500		73+427
+Mon Mar 16 12:44:40 2020
+
+                         22490		8		2		499		217+282
+Mon Mar 16 12:44:45 2020
+
+                         22494		10		2		522		122+400
+Mon Mar 16 12:44:49 2020
+
+                         22499		12		2		697		430+267
+Mon Mar 16 12:44:52 2020
+
+                         22501		14		2		507		214+293
+Mon Mar 16 12:44:54 2020
+
+                         22506		16		2		724		396+328
+Mon Mar 16 12:44:59 2020
+
+                         22511		18		2		551		138+413
+Mon Mar 16 12:45:04 2020
+
+                         22516		20		2		580		366+214
+Mon Mar 16 12:45:08 2020
+
+                         22518		22		2		564		285+279
+Mon Mar 16 12:45:10 2020
+
+                         22521		24		2		478		81+397
+Mon Mar 16 12:45:12 2020
+
+                         22524		26		2		655		269+386
+Mon Mar 16 12:45:15 2020
+
+                         22530		28		2		583		373+210
+Mon Mar 16 12:45:19 2020
+
+                         22539		30		2		491		254+237
+Mon Mar 16 12:45:22 2020
+
+                         22549		0		2		906		340+566
+Mon Mar 16 12:45:26 2020
+
+                         22555		2		2		946		446+500
+Mon Mar 16 12:45:28 2020
+
+                         22560		4		2		1021		499+522
+Mon Mar 16 12:45:31 2020
+
+                         22565		6		2		1204		697+507
+Mon Mar 16 12:45:33 2020
+
+                         22567		8		2		1275		724+551
+Mon Mar 16 12:45:35 2020
+
+                         22574		10		2		1144		580+564
+Mon Mar 16 12:45:40 2020
+
+                         22579		12		2		1133		478+655
+Mon Mar 16 12:45:42 2020
+
+                         22584		14		2		1074		583+491
+Mon Mar 16 12:45:46 2020
+
+                         22589		0		2		1852		906+946
+Mon Mar 16 12:45:50 2020
+
+                         22594		2		2		2225		1021+1204
+Mon Mar 16 12:45:55 2020
+
+                         22598		4		2		2419		1275+1144
+Mon Mar 16 12:45:59 2020
+
+                         22601		6		2		2207		1133+1074
+Mon Mar 16 12:46:01 2020
+
+                         22604		0		2		4077		1852+2225
+Mon Mar 16 12:46:04 2020
+
+                         22608		2		2		4626		2419+2207
+Mon Mar 16 12:46:07 2020
+
+                         22612		0		2		8703		4077+4626
+Mon Mar 16 12:46:11 2020
+
+Final Result = 8703
+ 
+-----------------------------------------------------------------------------------------------------------------
+n/log(n) computation:
+                         PID		Index		Size		Result		Values
+
+                         22615		0		6		671		29+180+102+29+134+197
+Mon Mar 16 12:46:13 2020
+
+                         22620		6		6		681		31+204+253+174+13+6
+Mon Mar 16 12:46:18 2020
+
+                         22629		12		6		717		29+44+194+233+120+97
+Mon Mar 16 12:46:21 2020
+
+                         22636		18		6		804		114+168+112+10+211+189
+Mon Mar 16 12:46:23 2020
+
+                         22641		24		6		911		250+180+37+230+53+161
+Mon Mar 16 12:46:25 2020
+
+                         22648		30		6		1017		211+82+212+184+239+89
+Mon Mar 16 12:46:28 2020
+
+                         22653		36		6		917		124+14+165+248+188+178
+Mon Mar 16 12:46:31 2020
+
+                         22660		42		6		778		125+89+222+63+65+214
+Mon Mar 16 12:46:36 2020
+
+                         22669		48		6		747		31+50+253+144+61+208
+Mon Mar 16 12:46:41 2020
+
+                         22675		54		6		969		204+182+131+242+155+55
+Mon Mar 16 12:46:45 2020
+
+                         22679		60		6		491		17+237+8+229+0+0
+Mon Mar 16 12:46:49 2020
+
+                         22683		0		2		1352		671+681
+Mon Mar 16 12:46:51 2020
+
+                         22688		2		2		1521		717+804
+Mon Mar 16 12:46:56 2020
+
+                         22692		4		2		1928		911+1017
+Mon Mar 16 12:46:59 2020
+
+                         22695		6		2		1695		917+778
+Mon Mar 16 12:47:01 2020
+
+                         22699		8		2		1716		747+969
+Mon Mar 16 12:47:05 2020
+
+                         22702		0		2		2873		1352+1521
+Mon Mar 16 12:47:07 2020
+
+                         22704		2		2		3623		1928+1695
+Mon Mar 16 12:47:09 2020
+
+                         22707		4		2		2207		1716+491
+Mon Mar 16 12:47:11 2020
+
+                         22710		0		2		6496		2873+3623
+Mon Mar 16 12:47:13 2020
+
+                         22712		0		2		8703		6496+2207
+Mon Mar 16 12:47:15 2020
+
+Final Result = 8703
+ 
