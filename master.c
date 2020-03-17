@@ -1,3 +1,10 @@
+/*
+ * Date: March 12, 2020
+ * Author: David Richards
+ * Class: CS4760
+ * File: "master.c"
+ */
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <unistd.h>
@@ -16,7 +23,7 @@ void sigErrors(int signum);
 char resultFile[] = "adder_log";
 
 
-/* Struct to hold integer shared memory array */
+/* Struct to hold integer shared memory arrays */
 struct sharedMem
 {
         int numbers[1024];
@@ -181,15 +188,15 @@ int main(int argc, char* argv[])
 	int counter = 0;
 
 	/* Get the current time for printing later */
-        struct timeval tv1, tv2, tv3, tv4;
-        gettimeofday(&tv1, NULL);
+        struct timeval time1, time2, time3, time4;
+        gettimeofday(&time1, NULL);
 
 	/* Write the header to adder_log for n/2 */
 	FILE* logFile = fopen(resultFile, "a");
 	fprintf(logFile, "n/2 computation\n                         PID\t\tIndex\t\tSize\t\tResult\t\tValues\n\n");
 	
 	fclose(logFile);
-	gettimeofday(&tv3, NULL);
+	//gettimeofday(&time3, NULL);
 	
 	printf("\nStarting n/2 computation\n");
 	
@@ -217,14 +224,14 @@ int main(int argc, char* argv[])
 				intShared->numbers[1] = intShared->numbers[(int)logNum];
 				
 				int z;
-        			for (z = 2; z < launchChild; z++) 
+        			for (z = 2; z < launchChild; z++) //shift array elements
 				{
             				intShared->numbers[z] = intShared->numbers[z * (int)logNum];
         			}
 			index1 = 0;
         		launchChild = launchChild / 2;
 			
-			if(launchChild == 1)
+			if(launchChild == 1) //increment counter
 			{
             			if(counter == 1)
 				{
@@ -240,8 +247,8 @@ int main(int argc, char* argv[])
 	}
 	
 	/* Print total time taken for n/2 and the final result to the screen */
-	gettimeofday(&tv2, NULL);
-	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (tv2.tv_usec - tv1.tv_usec) / 10000000 + (double) (tv2.tv_sec - tv1.tv_sec));
+	gettimeofday(&time2, NULL);
+	printf("\nTotal time taken for n / 2 processes: %f seconds\n", (double) (time2.tv_usec - time1.tv_usec) / 10000000 + (double) (time2.tv_sec - time1.tv_sec));
 	printf("Final Result = %d\n ", intShared->numbers[0]);
 	logFile = fopen(resultFile, "a");
 	
@@ -267,7 +274,7 @@ int main(int argc, char* argv[])
 	
 	printf("\n\nStarting n/log(n) computation\n");
 
-	gettimeofday(&tv3, NULL);
+	gettimeofday(&time3, NULL);
 
 	while (launchChild > 0)
 	{
@@ -294,14 +301,14 @@ int main(int argc, char* argv[])
 				intShared->numbersLog[1] = intShared->numbersLog[(int)logNum];
 				
 				int z;
-        			for (z = 2; z < launchChild; z++) 
+        			for (z = 2; z < launchChild; z++) //shift array elements 
 				{
             				intShared->numbersLog[z] = intShared->numbersLog[z * (int)logNum];
         			}
 			index1 = 0;
         		launchChild = ceil(launchChild / 2);
 			
-			if(launchChild == 1)
+			if(launchChild == 1) //increment counter
 			{
             			if(counter == 1)
 				{
@@ -313,13 +320,13 @@ int main(int argc, char* argv[])
 			
 			numbers /= addNums;
         		logNum = 2;
-        		addNums = 2;
+        		addNums = 2; //always adding 2 numbers
 	}
 	
-	gettimeofday(&tv4, NULL);
+	gettimeofday(&time4, NULL);
 
 	/* Print total time and final result for n/log(n) to screen */
-        printf("\nTotal time taken for n / log(n) processes: %f seconds\n", (double) (tv4.tv_usec - tv3.tv_usec) / 10000000 + (double) (tv4.tv_sec - tv3.tv_sec));
+        printf("\nTotal time taken for n / log(n) processes: %f seconds\n", (double) (time4.tv_usec - time3.tv_usec) / 10000000 + (double) (time4.tv_sec - time3.tv_sec));
 	printf("Final Result = %d\n ", intShared->numbersLog[0]);	
 
 	/* Print final result for n/log(n) to adder_log */
@@ -347,6 +354,7 @@ void sigErrors(int signum)
         }
         shmctl(shmid, IPC_RMID, NULL);
         sem_unlink("p3sem");
+	sem_unlink("p3sem2");
         kill(0, SIGTERM);
         exit(EXIT_SUCCESS);
 }

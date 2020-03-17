@@ -148,7 +148,7 @@ int main(int argc, char *argv[])
 		/* If groups of 5 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
 		if(count == 5)
                 {
-                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t\%d\t\t%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],tme);
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],tme);
                 int resultLog = intShared->numbersLog[index];
                 int result2Log = intShared->numbersLog[index+1];
                 int result3Log = intShared->numbersLog[index+2];
@@ -168,7 +168,33 @@ int main(int argc, char *argv[])
 		int result6Log = intShared->numbersLog[index+5];
                 intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log + result6Log;
                 }
-
+		/* If groups of 7 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
+		if(count == 7)
+                {
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4] + intShared->numbersLog[index+5], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],intShared->numbersLog[index+5],intShared->numbersLog[index + 6],tme);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                int result3Log = intShared->numbersLog[index+2];
+                int result4Log = intShared->numbersLog[index+3];
+                int result5Log = intShared->numbersLog[index+4];
+                int result6Log = intShared->numbersLog[index+5];
+		int result7Log = intShared->numbersLog[index+6];
+                intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log + result6Log + result7Log;
+                }
+		/* If groups of 8 add numbers accordingly and Print PID, index, size, time, values and result to adder_log */
+		if(count == 8)
+                {
+                fprintf(file1, "                         %d\t\t%d\t\t%d\t\t%d\t\t%d+%d+%d+%d+%d+%d+%d+%d\n%s\n", getpid(), index, count,intShared->numbersLog[index] + intShared->numbersLog[index+1] + intShared->numbersLog[index+2] + intShared->numbersLog[index+3] + intShared->numbersLog[index+4] + intShared->numbersLog[index+5], intShared->numbersLog[index], intShared->numbersLog[index+1], intShared->numbersLog[index+2], intShared->numbersLog[index+3],intShared->numbersLog[index+4],intShared->numbersLog[index+5],intShared->numbersLog[index + 6], intShared->numbersLog[index + 7],tme);
+                int resultLog = intShared->numbersLog[index];
+                int result2Log = intShared->numbersLog[index+1];
+                int result3Log = intShared->numbersLog[index+2];
+                int result4Log = intShared->numbersLog[index+3];
+                int result5Log = intShared->numbersLog[index+4];
+                int result6Log = intShared->numbersLog[index+5];
+		int result7Log = intShared->numbersLog[index+6];
+		int result8Log = intShared->numbersLog[index+7];
+                intShared->numbersLog[index] = resultLog + result2Log + result3Log + result4Log + result5Log + result6Log + result7Log + result8Log;
+                }
 		sleep(1); //wait one second before leaving the critical section
                 fprintf(stderr, "Process: %d has left the critical section at time: %s seconds\n", getpid(), tme);
                 sem_post(sem2); //signal the semaphore

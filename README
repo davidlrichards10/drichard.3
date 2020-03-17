@@ -3,7 +3,7 @@
         Author: David Richards
         Class:  CS4760
 =======================================================================================================================
-Invocation: ./master [-h] [-n x]
+Invocation: ./master [-h] [-n x -t x]
 =======================================================================================================================
 How to Run:
                 1. Type make
@@ -31,9 +31,16 @@ Comments on submission: All project requirments met
 		   actually being added is always = 2. The size changes for n/log(n) which is expected.
 		3. Below, I decided to include my results for 4,8,16 and 32 integers as well as 64 as required.
 		   I did this so that you are able to see how my program runs for different sets of integers.
+		4. I used log with base 2 for n/log(n) computation as instructed
 =======================================================================================================================
 Comments on performance: 
-
+		n/log(n) ran in about half the time as n/2 for 64 integers. This makes sense because
+		there are less processes that add together more numbers so it goes much faster. It always
+		exceeds the 100 second timer which is expected, so you can increase the timer to see it 
+		run to completion. 64 integers for n/2 starts by dividing into 32 groups of 2 numbers each
+		and continues this until the final result is obtained, which results in 63 processes. Where
+		n/log2(n) created 10 groups of 6 numbers each and the final group containing 4, and then
+		the integers are added in the same way that method 1 working.
 =======================================================================================================================
 Performance: 
 ------------------------------n = 64----------------------------------
